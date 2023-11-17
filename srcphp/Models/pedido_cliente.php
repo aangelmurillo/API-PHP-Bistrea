@@ -7,19 +7,19 @@ use PDO;
 use proyecto\Auth;
 use function json_encode;
 
-class resenas extends Models
+class pedido_cliente extends Models
 {
 
- public $id_resena;
- public $comentario_resena;
+ public $id_pedido_cliente;
+ public $id_pedido;
  public $id_usuario;
 
-    protected  $table = "resenas";
+    protected  $table = "pedidos_clientes";
     /**
      * @var array
      */
     protected $filleable = [
-        "comentario_resena","id_usuario"
+        "id_pedido","id_usuario"
     ];
 
 }

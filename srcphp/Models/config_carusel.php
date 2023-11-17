@@ -7,7 +7,7 @@ use PDO;
 use proyecto\Auth;
 use function json_encode;
 
-class configs_carusel extends Models
+class config_carusel extends Models
 {
 
  public $id_config_carusel;

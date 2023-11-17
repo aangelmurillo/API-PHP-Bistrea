@@ -7,7 +7,7 @@ use PDO;
 use proyecto\Auth;
 use function json_encode;
 
-class roles extends Models
+class rol extends Models
 {
 
  public $id_rol="";

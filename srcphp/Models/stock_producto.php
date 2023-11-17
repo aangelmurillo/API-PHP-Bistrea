@@ -7,7 +7,7 @@ use PDO;
 use proyecto\Auth;
 use function json_encode;
 
-class stock_productos extends Models
+class stock_producto extends Models
 {
 
  public $id_stock;

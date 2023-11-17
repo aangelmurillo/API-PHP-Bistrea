@@ -7,7 +7,7 @@ use PDO;
 use proyecto\Auth;
 use function json_encode;
 
-class detalles_pedido extends Models
+class detalle_pedido extends Models
 {
 
  public $id_detalle_pedido;
