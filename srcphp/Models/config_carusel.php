@@ -18,7 +18,7 @@ class config_carusel extends Models
      * @var array
      */
     protected $filleable = [
-        "img_config_carusel","id_empleado"
+        "img_config_carusel"
     ];
 
 }
