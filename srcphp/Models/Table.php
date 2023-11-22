@@ -23,7 +23,7 @@ class Table
     static function query($query)
     {
         // Es la cadena de conexion, nombre de la base de datos, ip, usuario, contraseña
-        $cc = new Conexion("prueba", "localhost:3306", "bistrea", "bistrea1234");
+        $cc = new Conexion("cafeteria", "localhost:3306", "bistrea", "bistrea1234");
         self::$pdo = $cc->getPDO();
         $stmt = self::$pdo->query($query);
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
