@@ -10,7 +10,7 @@ use function json_encode;
 class rol extends Models
 {
 
- public $id_rol="";
+ public $id="";
  public $nombre_rol="";
 
     protected  $table = "roles";

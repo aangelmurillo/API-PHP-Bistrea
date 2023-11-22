@@ -10,7 +10,7 @@ use function json_encode;
 class empleado extends Models
 {
 
- public $id_empleado;
+ public $id;
  public $curp_empleado;
  public $rfc_empleado;
  public $nss_empleado;

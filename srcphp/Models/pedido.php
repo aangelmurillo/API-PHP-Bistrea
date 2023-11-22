@@ -10,7 +10,7 @@ use function json_encode;
 class pedido extends Models
 {
 
- public $id_pedido;
+ public $id;
  public $fecha_realizado_pedido;
  public $hora_realizado_pedido;
  public $hora_entrega_pedido;

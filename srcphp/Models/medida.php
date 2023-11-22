@@ -10,7 +10,7 @@ use function json_encode;
 class medida extends Models
 {
 
- public $id_medida;
+ public $id;
  public $nom_medida;
  public $uni_medida;
 

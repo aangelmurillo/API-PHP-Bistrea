@@ -10,7 +10,7 @@ use function json_encode;
 class config_carusel extends Models
 {
 
- public $id_config_carusel;
+ public $id;
  public $img_config_carusel;
  public $id_empleado;
 

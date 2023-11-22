@@ -10,7 +10,7 @@ use function json_encode;
 class detalle_pedido_tipo_cafe extends Models
 {
 
- public $id_detalles_pedido_tp;
+ public $id;
  public $nom_cafe;
  public $id_detalle_pedido;
  public $id_tipo_cafe;

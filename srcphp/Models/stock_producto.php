@@ -10,7 +10,7 @@ use function json_encode;
 class stock_producto extends Models
 {
 
- public $id_stock;
+ public $id;
  public $ingreso_stock;
  public $fecha_ingreso_stock;
  public $id_producto;

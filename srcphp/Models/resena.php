@@ -10,7 +10,7 @@ use function json_encode;
 class resena extends Models
 {
 
- public $id_resena;
+ public $id;
  public $comentario_resena;
  public $id_usuario;
 

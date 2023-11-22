@@ -10,7 +10,7 @@ use function json_encode;
 class tipo_cafe extends Models
 {
 
- public $id_tipo_cafe;
+ public $id;
  public $tipo_cafe;
 
     protected  $table = "tipos_cafe";

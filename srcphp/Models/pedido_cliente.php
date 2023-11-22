@@ -10,7 +10,7 @@ use function json_encode;
 class pedido_cliente extends Models
 {
 
- public $id_pedido_cliente;
+ public $id;
  public $id_pedido;
  public $id_usuario;
 

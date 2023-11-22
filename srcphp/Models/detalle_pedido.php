@@ -10,7 +10,7 @@ use function json_encode;
 class detalle_pedido extends Models
 {
 
- public $id_detalle_pedido;
+ public $id;
  public $cantidad_producto;
  public $precio_unitario;
  public $id_producto;

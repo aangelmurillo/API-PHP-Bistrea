@@ -10,7 +10,7 @@ use function json_encode;
 class categoria extends Models
 {
 
- public $id_categoria;
+ public $id;
  public $nom_categoria;
  public $img_categoria;
 

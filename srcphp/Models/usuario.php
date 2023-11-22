@@ -10,7 +10,7 @@ use function json_encode;
 class usuario extends Models
 {
 
- public $id_usuario;
+ public $id;
  public $nombre_usuario;
  public $apellido_p_usuario;
  public $apellido_m_usuario;
