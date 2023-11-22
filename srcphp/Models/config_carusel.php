@@ -12,7 +12,6 @@ class config_carusel extends Models
 
  public $id;
  public $img_config_carusel;
- public $id_empleado;
 
     protected  $table = "configs_carusel";
     /**
