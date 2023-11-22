@@ -13,15 +13,17 @@ class Table
     {
 
     }
-    static  function getDataconexion(){
+    static function getDataconexion()
+    {
 
 
 
 
-}
+    }
     static function query($query)
     {
-        $cc = new  Conexion("web", "localhost", "root", "");
+        // Es la cadena de conexion, nombre de la base de datos, ip, usuario, contraseña
+        $cc = new Conexion("prueba", "localhost:3306", "bistrea", "bistrea1234");
         self::$pdo = $cc->getPDO();
         $stmt = self::$pdo->query($query);
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
