@@ -19,7 +19,7 @@ Router::get("/", function () {
 
 Router::get("/mostrar", function () {
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=ejemplo', "bistrea", "bistrea1234");
+        $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "bistrea", "bistrea1234");
         echo "Conexión exitosa!";
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
