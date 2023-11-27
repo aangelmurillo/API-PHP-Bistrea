@@ -1,18 +1,18 @@
 <?php
-
 namespace proyecto;
-
 require("../vendor/autoload.php");
-
+use proyecto\Controller\RegistroController;
 use PDOException;
 use PDO;
-use proyecto\Controller\crearPersonaController;
 use proyecto\Models\User;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
-// Routers de prueba para saber si funciona el mod_rewrite y el PDO
+Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
 
+Router::get("/obtenerImagenesCarrusel", );
+
+// Routers de prueba para saber si funciona el mod_rewrite y el PDO
 Router::get("/", function () {
     echo "Probando";
 });
