@@ -1,5 +1,6 @@
 <?php
 namespace proyecto;
+use proyecto\Controller\UsuarioController;
 
 require("../vendor/autoload.php");
 use proyecto\Controller\RegistroController;
@@ -12,6 +13,9 @@ use proyecto\Response\Success;
 
 // Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
+
+// Ver usuarios
+Router::get("/verUsuarios", [UsuarioController::class,"verUsuarios"]);
 
 // Insertar imagenes para el carrusel
 Router::post("/obtenerImagenes", [CarruselController::class, "insertarImagenesCarrusel"]);
