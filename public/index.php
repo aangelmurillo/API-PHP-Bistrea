@@ -17,6 +17,9 @@ Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]
 // Ver usuarios
 Router::get("/verUsuarios", [UsuarioController::class,"verUsuarios"]);
 
+// Ver imagenes 
+Router::get("/verImagenesCarrusel", [CarruselController::class, "verImagenes"]);
+
 // Insertar imagenes para el carrusel
 Router::post("/obtenerImagenes", [CarruselController::class, "insertarImagenesCarrusel"]);
 

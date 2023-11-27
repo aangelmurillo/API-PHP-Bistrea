@@ -9,6 +9,14 @@ use proyecto\Response\Success;
 
 class CarruselController
 {
+    public function verImagenes()
+    {
+        $db = Table::query("SELECT * FROM config_carusel");
+        $db = new Success($db);
+
+        $db->Send();
+    }
+
     public function insertarImagenesCarrusel()
     {
         try {
