@@ -25,6 +25,8 @@ class RegistroController
             // Encriptar la contraseña
             $nuevoUsuario->contrasena_usuario = $dataObject->contrasena_usuario;
 
+            
+
             // Codigo para recibir la imagen y poderla guardar
             $imagenBase64 = $dataObject->foto_perfil_usuario;
             $imagenData = base64_decode($imagenBase64);
@@ -48,7 +50,7 @@ class RegistroController
             $fileExtension = $extensionMap[$mime_type];
             $nombreImagen = uniqid() . '.' . $fileExtension;
 
-            $rutaImagen = '/public/img/perfil/' . $nombreImagen;
+            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
 

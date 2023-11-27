@@ -1,16 +1,21 @@
 <?php
 namespace proyecto;
+
 require("../vendor/autoload.php");
 use proyecto\Controller\RegistroController;
 use PDOException;
 use PDO;
+use proyecto\Controller\CarruselController;
 use proyecto\Models\User;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
+// Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
 
-Router::get("/obtenerImagenesCarrusel", );
+
+// Insertar imagenes para el carrusel
+Router::post("/obtenerImagenesCarrusel", [CarruselController::class, "insertarImagenesCarrusel"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 Router::get("/", function () {
@@ -30,9 +35,9 @@ Router::get("/mostrar", function () {
 
 
 // Esto es codigo de ramiro
-Router::get('/prueba', [crearPersonaController::class, "prueba"]);
+// Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
-Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
+// Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
 Router::get('/usuario/buscar/$id', function ($id) {
 
     $user = User::find($id);
@@ -45,7 +50,7 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 
 });
-Router::get('/respuesta', [crearPersonaController::class, "response"]);
+// Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
 
 
