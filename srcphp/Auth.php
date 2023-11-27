@@ -5,16 +5,16 @@ namespace proyecto;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use proyecto\Models\User;
+use proyecto\Models\usuario;
 
 class Auth
 {
-    private $user;
+    private $usuario;
 
     public static function generateToken($data, $time = 3600): string
     {
         $t = Carbon::now()->timestamp + $time;
-        $key = 'orimar174';
+        $key = 'bistrea1234';
         $payload = ['exp' => $t, 'data' => $data];
         return JWT::encode($payload, $key, 'HS256');
     }
@@ -24,26 +24,26 @@ class Auth
      */
     public static function getUser()
     {
-        $secretKey = 'orimar174';
+        $secretKey = 'bistrea1234';
         $jwt = Router::getBearerToken();
         $token = JWT::decode($jwt, new key($secretKey, 'HS256'));
-        return User::find($token->data[0]);
+        return usuario::find($token->data[0]);
     }
 
     /**
      * @param mixed $user
      */
-    public static function setUser($user): void
+    public static function setUser($email_usuario): void
     {
         $session = new Session();
-        $session->set('user', $user);
+        $session->set('email_usuario', $email_usuario);
 
     }
 
-    public function clearUser($user): void
+    public function clearUser($email_usuario): void
     {
         $se = new Session();
-        $se->remove("user");
+        $se->remove("email_usuario");
     }
 
 
