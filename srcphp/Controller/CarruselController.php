@@ -11,7 +11,7 @@ class CarruselController
 {
     public function verImagenes()
     {
-        $db = Table::query("SELECT * FROM config_carusel");
+        $db = Table::query("SELECT * FROM configs_carusel");
         $db = new Success($db);
 
         $db->Send();
