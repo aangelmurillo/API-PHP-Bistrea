@@ -11,6 +11,8 @@ use proyecto\Models\User;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
+Router::headers();
+
 // Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
 
