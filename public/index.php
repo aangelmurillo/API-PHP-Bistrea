@@ -13,9 +13,8 @@ use proyecto\Response\Success;
 // Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
 
-
 // Insertar imagenes para el carrusel
-Router::post("/obtenerImagenesCarrusel", [CarruselController::class, "insertarImagenesCarrusel"]);
+Router::post("/obtenerImagenes", [CarruselController::class, "insertarImagenesCarrusel"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 Router::get("/", function () {
