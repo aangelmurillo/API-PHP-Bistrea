@@ -15,11 +15,9 @@ class ProductosController
             $prod = new Success($prod);
             $prod->Send();
             return $prod;
-        }catch (\Exception $e) {
-            $errorResponse = ['message'=> "Error en el servidor: " .$e->getMessage()];
-            header('Content-Type: application/json');
-            echo json_encode($errorResponse);
-            http_response_code(500);
+         } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
         }
         /*try {
          $prod = Table::query("select * from productos" );
