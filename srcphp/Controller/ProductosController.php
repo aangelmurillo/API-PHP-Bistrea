@@ -10,7 +10,11 @@ use proyecto\Response\Success;
 class ProductosController
 {
     public function prod (){
-        try {
+        $prod = Table::query("select * from productos");
+        $prod = new Success($prod);
+
+        $prod->send();
+        /*try {
          $prod = Table::query("select * from productos" );
         $prods = new Success ($prod);
         $prods->Send();
@@ -33,7 +37,7 @@ class ProductosController
             header('Content-Type: application/json');
             echo json_encode($productos);
             exit;
-        }
+        }*/
     }
     public function Insertarprod()
     {
