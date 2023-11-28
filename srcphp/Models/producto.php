@@ -26,15 +26,16 @@ class producto extends Models
  public $id_medida;
 
     protected  $table = "productos";
-    public function productos() {
-        try{
-            $produ = Table::query("select * from productos");
-            $produ = new Success($produ);
-            $produ->Send();
-            return $produ;
-         } catch (\Exception $e) {
-            $s = new Failure(401, $e->getMessage());
-            return $s->Send();
+    public function getproductos() {
+        try {
+            $prod = Table::query("SELECT * FROM productos");
+            $successResponse = new Success($prod);
+            $successResponse->send(); // Suponiendo que el método send realiza la acción de envío
+    
+            return $successResponse;
+        } catch (\Exception $e) {
+            // En lugar de crear un objeto Failure, simplemente retorna un mensaje de error
+            return new Failure(401, $e->getMessage());
         }
     }
     /**
