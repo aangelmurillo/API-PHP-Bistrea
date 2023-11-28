@@ -58,7 +58,7 @@ Router::get("/mostrar", function () {
 
 //codigo pepechuy
 //ver productos
-Router::get('/verproductos', [ProductosController::class, "prod"]);
+Router::get('/producto', [ProductosController::class, "prod"]);
 //ver barista
 Router::get('/empleado',[empleado::class,'emp']);
 //ver usuarios
