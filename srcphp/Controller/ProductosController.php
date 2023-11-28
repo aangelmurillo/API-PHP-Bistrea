@@ -10,10 +10,17 @@ use proyecto\Response\Success;
 class ProductosController
 {
     public function prod (){
-        $prod = Table::query("select * from productos");
-        $prod = new Success($prod);
-
-        $prod->send();
+        try{
+            $prod = Table::query("select * from productos");
+            $prod = new Success($prod);
+            $prod->Send();
+            return $prod;
+        }catch (\Exception $e) {
+            $errorResponse = ['message'=> "Error en el servidor: " .$e->getMessage()];
+            header('Content-Type: application/json');
+            echo json_encode($errorResponse);
+            http_response_code(500);
+        }
         /*try {
          $prod = Table::query("select * from productos" );
         $prods = new Success ($prod);
