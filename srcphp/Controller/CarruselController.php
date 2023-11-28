@@ -52,7 +52,7 @@ class CarruselController
                 $fileExtension = $extensionMap[$mime_type];
                 $nombreImagen = uniqid() . '.' . $fileExtension;
 
-                $rutaImagen = '/var/www/html/POOCRUD/public/img/' . $nombreImagen;
+                $rutaImagen = '/var/www/html/apiPhp/public/img/carrusel/' . $nombreImagen;
 
                 file_put_contents($rutaImagen, $imagenData);
 
