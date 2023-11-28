@@ -10,17 +10,7 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-    public function productos() {
-        try{
-            $produ = Table::query("select * from productos");
-            $produ = new Success($produ);
-            $produ->Send();
-            return $produ;
-         } catch (\Exception $e) {
-            $s = new Failure(401, $e->getMessage());
-            return $s->Send();
-        }
-    }
+   
         /*try {
          $prod = Table::query("select * from productos" );
         $prods = new Success ($prod);

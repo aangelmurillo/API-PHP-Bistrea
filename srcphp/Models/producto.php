@@ -26,7 +26,17 @@ class producto extends Models
  public $id_medida;
 
     protected  $table = "productos";
-
+    public function productos() {
+        try{
+            $produ = Table::query("select * from productos");
+            $produ = new Success($produ);
+            $produ->Send();
+            return $produ;
+         } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
     /**
      * @var array
      */
