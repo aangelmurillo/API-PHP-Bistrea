@@ -11,11 +11,7 @@ use proyecto\Controller\AgendaController;
 use proyecto\Controller\ProductosController;
 use proyecto\Models\empleado;
 use proyecto\Controller\UsuarioController;
-
-require("../vendor/autoload.php");
 use proyecto\Controller\RegistroController;
-use PDOException;
-use PDO;
 use proyecto\Controller\CarruselController;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
@@ -58,18 +54,19 @@ Router::get("/mostrar", function () {
 
 
 // Esto es codigo de ramiro
-Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
-Router::get('/prueba', [crearPersonaController::class, "prueba"]);
+//Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
+//Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
 //codigo pepechuy
 //ver productos
-Router::get('/producto', [producto::class, "prod"]);
+Router::get('/verproductos', [producto::class, "prod"]);
+//ver barista
 Router::get('/empleado',[empleado::class,'emp']);
 Router::get('/usuario',[usuario::class,'usuario']);
 Router::post('/login',[UserController::class,"login"]);
 Router::post('/verificacion',[UserController::class,"verificar"]);
 Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
-Router::post('/productoi',[])
+Router::post('/productoi',[ProductosController::class, "Insertarprod"]);
 Router::post('/usuarioi',[UserController::class,'registro']);
 Router::post('/auth',[usuario::class,'auth']);
 Router::get('/contrasena', [UserController::class, 'getpassword']);

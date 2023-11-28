@@ -147,7 +147,7 @@ class UserController
     
     
     
-    private function generateSessionToken($userId)
+    /*private function generateSessionToken($userId)
     {
         $tokenData = [
             'id' => $userId,
@@ -158,7 +158,7 @@ class UserController
         $encodedToken = base64_encode(json_encode($tokenData));
     
         return $encodedToken;
-    }
+    }*/
     
     public function getpassword(Request $request)
 {
