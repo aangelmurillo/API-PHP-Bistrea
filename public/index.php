@@ -62,6 +62,7 @@ Router::get("/mostrar", function () {
 Router::get('/verproductos', [producto::class, "prod"]);
 //ver barista
 Router::get('/empleado',[empleado::class,'emp']);
+//ver usuarios
 Router::get('/usuario',[usuario::class,'usuario']);
 Router::post('/login',[UserController::class,"login"]);
 Router::post('/verificacion',[UserController::class,"verificar"]);
