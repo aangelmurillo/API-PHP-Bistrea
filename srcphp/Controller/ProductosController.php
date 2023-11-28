@@ -2,6 +2,7 @@
 
 namespace proyecto\Controller;
 
+use PDO;
 use proyecto\Models\Table;
 use proyecto\Models\producto;
 use proyecto\Response\Failure;
@@ -9,11 +10,12 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-    public function producto(){
+    public function productos() {
         try{
             $prod = Table::query("select * from productos");
             $prod = new Success($prod);
             $prod->Send();
+            return $prod;
          } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
