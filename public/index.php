@@ -59,18 +59,26 @@ Router::get("/mostrar", function () {
 
 //codigo pepechuy
 //ver productos
-Router::get('/verproductos', [producto::class, "prod"]);
+Router::get('/verproductos', [ProductosController::class, "prod"]);
 //ver barista
 Router::get('/empleado',[empleado::class,'emp']);
 //ver usuarios
 Router::get('/usuario',[usuario::class,'usuario']);
+//funcion login
 Router::post('/login',[UserController::class,"login"]);
+//verificacion de correo y contrasena
 Router::post('/verificacion',[UserController::class,"verificar"]);
+//actualizar productos
 Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
+//insertar productos
 Router::post('/productoi',[ProductosController::class, "Insertarprod"]);
-Router::post('/usuarioi',[UserController::class,'registro']);
+//registro usuario
+Router::post('/usu8arioi',[UserController::class,'registro']);
+//authenticacion
 Router::post('/auth',[usuario::class,'auth']);
+//obtener contrasena
 Router::get('/contrasena', [UserController::class, 'getpassword']);
+//ingresar empleado
 Router::post('/empleadoin',[AgendaController::class,'Insertaremplead']);
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 

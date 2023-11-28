@@ -9,6 +9,32 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
+    public function prod (){
+        try {
+         $prod = Table::query("select * from productos" );
+        $prods = new Success ($prod);
+        $prods->Send();
+        return $prods;
+
+        $r = new Success($prods);
+        return $r->Send();
+    }catch (\Exception $e){
+        $r = new Failure(401, $e->getMessage());
+        return $r->Send();
+    }
+        // Ruta para obtener los datos de los productos
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['endpoint']) && $_GET['endpoint'] === 'productos') {
+            $query = 'SELECT * FROM productos';
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Devolver los datos de los productos en formato JSON
+            header('Content-Type: application/json');
+            echo json_encode($productos);
+            exit;
+        }
+    }
     public function Insertarprod()
     {
         
