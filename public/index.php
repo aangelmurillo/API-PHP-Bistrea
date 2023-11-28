@@ -1,5 +1,4 @@
 <?php
-
 namespace proyecto;
 require("../vendor/autoload.php");
 
@@ -11,6 +10,13 @@ use proyecto\Controller\crearPersonaController;
 use proyecto\Controller\AgendaController;
 use proyecto\Controller\ProductosController;
 use proyecto\Models\empleado;
+use proyecto\Controller\UsuarioController;
+
+require("../vendor/autoload.php");
+use proyecto\Controller\RegistroController;
+use PDOException;
+use PDO;
+use proyecto\Controller\CarruselController;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
 use proyecto\Models\producto;
@@ -19,6 +25,21 @@ use proyecto\Response\Success;
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
+Router::headers();
+
+// Registrar Usuario
+Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
+
+// Ver usuarios
+Router::get("/verUsuarios", [UsuarioController::class,"verUsuarios"]);
+
+// Ver imagenes 
+Router::get("/verImagenesCarrusel", [CarruselController::class, "verImagenes"]);
+
+// Insertar imagenes para el carrusel
+Router::post("/obtenerImagenes", [CarruselController::class, "insertarImagenesCarrusel"]);
+
+// Routers de prueba para saber si funciona el mod_rewrite y el PDO
 Router::get("/", function () {
     echo "Probando";
 });
@@ -26,6 +47,7 @@ Router::get("/", function () {
 Router::get("/mostrar", function () {
     try {
         $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "Angel", "12345");
+        $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "bistrea", "bistrea1234");
         echo "Conexión exitosa!";
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -52,6 +74,9 @@ Router::post('/usuarioi',[UserController::class,'registro']);
 Router::post('/auth',[usuario::class,'auth']);
 Router::get('/contrasena', [UserController::class, 'getpassword']);
 Router::post('/empleadoin',[AgendaController::class,'Insertaremplead']);
+// Router::get('/prueba', [crearPersonaController::class, "prueba"]);
+
+// Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
 Router::get('/usuario/buscar/$id', function ($id) {
 
     $user = User::find($id);
@@ -64,7 +89,7 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 
 });
-Router::get('/respuesta', [crearPersonaController::class, "response"]);
+// Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
 
 
