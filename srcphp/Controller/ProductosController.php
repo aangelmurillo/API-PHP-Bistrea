@@ -9,7 +9,7 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-    public function prod (){
+    public function producto (){
         try{
             $prod = Table::query("select * from productos");
             $prod = new Success($prod);
