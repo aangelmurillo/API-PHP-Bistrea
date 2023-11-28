@@ -88,11 +88,10 @@ class Router
     public static function headers()
     {
 
-        header('Content-Type: application/json');   // MIME type for a json response
+        header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Authorization, Content-Type');
         header('Access-Control-Allow-Credentials: true');
 
 
@@ -116,7 +115,7 @@ class Router
             $token = JWT::decode($jwt, new key($secretKey, 'HS256'));
             $now = new DateTimeImmutable();
             if ($token->exp < $now->getTimestamp()) {
-              header('HTTP/1.1 401 Unauthorized');
+                header('HTTP/1.1 401 Unauthorized');
                 return false;
                 exit;
             }
@@ -124,7 +123,7 @@ class Router
         } catch (ExpiredException $e) {
             if ($e->getMessage() == "Expired token") {
                 list($header, $payload, $signature) = explode(".", $jwt);
-//                $payload = json_decode(base64_decode($payload));
+                //                $payload = json_decode(base64_decode($payload));
 //                $refresh_token = $payload->data->refresh_token;
                 header('HTTP/1.1 401 Unauthorized');
                 $r = new Failure(401, "Token expirado");
