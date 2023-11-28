@@ -40,13 +40,14 @@ Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
 Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
 //codigo pepechuy
+//ver productos
 Router::get('/producto', [producto::class, "prod"]);
 Router::get('/empleado',[empleado::class,'emp']);
 Router::get('/usuario',[usuario::class,'usuario']);
 Router::post('/login',[UserController::class,"login"]);
 Router::post('/verificacion',[UserController::class,"verificar"]);
 Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
-Router::post()
+Router::post('/productoi',[])
 Router::post('/usuarioi',[UserController::class,'registro']);
 Router::post('/auth',[usuario::class,'auth']);
 Router::get('/contrasena', [UserController::class, 'getpassword']);
