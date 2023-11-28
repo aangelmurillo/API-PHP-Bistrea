@@ -4,11 +4,10 @@ require("../vendor/autoload.php");
 
 /*use PDOException;
 use PDO;*/
-use proyecto\Controller\UserPersonaController;
 use proyecto\Controller\UserController;
-use proyecto\Controller\crearPersonaController;
 use proyecto\Controller\AgendaController;
 use proyecto\Controller\ProductosController;
+use proyecto\Controller\PedidoController;
 use proyecto\Models\empleado;
 use proyecto\Controller\UsuarioController;
 use proyecto\Controller\RegistroController;
@@ -64,6 +63,8 @@ Router::get('/verproductos', [ProductosController::class, "prod"]);
 Router::get('/empleado',[empleado::class,'emp']);
 //ver usuarios
 Router::get('/usuario',[usuario::class,'usuario']);
+//ver pedidos
+Router::get('/verpedidos', [PedidoController::class,'verpedido']);
 //funcion login
 Router::post('/login',[UserController::class,"login"]);
 //verificacion de correo y contrasena
@@ -73,7 +74,7 @@ Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
 //insertar productos
 Router::post('/productoi',[ProductosController::class, "Insertarprod"]);
 //registro usuario
-Router::post('/usu8arioi',[UserController::class,'registro']);
+Router::post('/usuarioi',[UserController::class,'registro']);
 //authenticacion
 Router::post('/auth',[usuario::class,'auth']);
 //obtener contrasena
