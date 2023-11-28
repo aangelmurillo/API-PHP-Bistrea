@@ -9,18 +9,15 @@ use proyecto\Controller\AgendaController;
 use proyecto\Controller\ProductosController;
 use proyecto\Controller\PedidoController;
 use proyecto\Models\empleado;
-use proyecto\Controller\UsuarioController;
-use proyecto\Controller\RegistroController;
-use proyecto\Controller\CarruselController;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
 use proyecto\Models\producto;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
+Router::headers();
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
-Router::headers();
 
 // Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
