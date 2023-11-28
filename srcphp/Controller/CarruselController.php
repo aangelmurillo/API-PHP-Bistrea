@@ -25,43 +25,60 @@ class CarruselController
 
             $carrusel = new config_carusel();
 
-            $imagenBase64 = $dataObject->img_uno;
-            $imagenData = base64_decode($imagenBase64);
+            // Crear un array para almacenar las imágenes
+            $imagenes = [];
 
-            $finfo = finfo_open();
-            $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
-            finfo_close($finfo);
+            // Manejar cada imagen por separado
+            foreach (['img_uno', 'img_dos', 'img_tres', 'img_cuatro'] as $imagenKey) {
+                $imagenBase64 = $dataObject->$imagenKey;
+                $imagenData = base64_decode($imagenBase64);
 
-            // Validar la extensión permitida
-            $extensionMap = [
-                'image/jpeg' => 'jpg',
-                'image/jpg' => 'jpg',
-                'image/png' => 'png',
-                'image/svg+xml' => 'svg',
-            ];
+                $finfo = finfo_open();
+                $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
+                finfo_close($finfo);
 
-            if (!array_key_exists($mime_type, $extensionMap)) {
-                throw new \Exception('Formato de imagen no permitido');
+                // Validar la extensión permitida
+                $extensionMap = [
+                    'image/jpeg' => 'jpg',
+                    'image/jpg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/svg+xml' => 'svg',
+                ];
+
+                if (!array_key_exists($mime_type, $extensionMap)) {
+                    throw new \Exception('Formato de imagen no permitido');
+                }
+
+                $fileExtension = $extensionMap[$mime_type];
+                $nombreImagen = uniqid() . '.' . $fileExtension;
+
+                $rutaImagen = '/var/www/html/POOCRUD/public/img/' . $nombreImagen;
+
+                file_put_contents($rutaImagen, $imagenData);
+
+                // Almacenar la ruta de la imagen en el array
+                $imagenes[$imagenKey] = $rutaImagen;
             }
 
-            $fileExtension = $extensionMap[$mime_type];
-            $nombreImagen = uniqid() . '.' . $fileExtension;
+            // Asignar las rutas de las imágenes al objeto $carrusel
+            $carrusel->img_uno = $imagenes['img_uno'];
+            $carrusel->img_dos = $imagenes['img_dos'];
+            $carrusel->img_tres = $imagenes['img_tres'];
+            $carrusel->img_cuatro = $imagenes['img_cuatro'];
 
-            $rutaImagen = '/var/www/html/POOCRUD/public/img/' . $nombreImagen;
+            // Guardar el objeto $carrusel en la base de datos
+            $carrusel->save();
 
-            file_put_contents($rutaImagen, $imagenData);
-
-            $carrusel->img_uno = $rutaImagen;
-
-            $nuevoUsuario->save();
-
-            $r = new Success($nuevoUsuario);
+            // Devolver una respuesta de éxito
+            $r = new Success($carrusel);
             return $r->Send();
         } catch (\Exception $e) {
+            // Devolver una respuesta de error en caso de excepción
             $r = new Failure(401, $e->getMessage());
             return $r->Send();
         }
-
     }
+
+
 
 }
