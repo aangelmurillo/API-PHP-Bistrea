@@ -10,7 +10,8 @@ use proyecto\Response\Failure;
 
 class PedidoController
 {
-    public function verpedido () {
+    public function verpedido()
+    {
         try{
             $pedi = Table::query("select * from pedidos");
             $pedi = new Success($pedi);

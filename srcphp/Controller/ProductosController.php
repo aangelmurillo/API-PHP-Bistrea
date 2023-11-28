@@ -9,16 +9,16 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-    public function producto (){
+    public function producto(){
         try{
             $prod = Table::query("select * from productos");
             $prod = new Success($prod);
             $prod->Send();
-            return $prod;
          } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
+    }
         /*try {
          $prod = Table::query("select * from productos" );
         $prods = new Success ($prod);
@@ -43,7 +43,7 @@ class ProductosController
             echo json_encode($productos);
             exit;
         }*/
-    }
+
     public function Insertarprod()
     {
         
