@@ -31,10 +31,17 @@ class producto extends Models
      * @var array
      */
     protected $filleable = [
-        "nombre_producto", "descripcion_producto", "precio_unitario_producto",
-        "stock_producto", "img_producto", "slug_producto",
-        "id_categoria", "especialidad_producto", "estado_producto",
-        "medida_producto", "id_medida"
+        "nombre_producto",
+         "descripcion_producto",
+          "precio_unitario_producto",
+        "stock_producto",
+         "img_producto",
+          "slug_producto",
+        "id_categoria",
+         "especialidad_producto",
+          "estado_producto",
+        "medida_producto", 
+        "id_medida"
     ];
 
 }

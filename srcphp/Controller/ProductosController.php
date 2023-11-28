@@ -12,10 +12,10 @@ class ProductosController
 {
     public function productos() {
         try{
-            $prod = Table::query("select * from productos");
-            $prod = new Success($prod);
-            $prod->Send();
-            return $prod;
+            $produ = Table::query("select * from productos");
+            $produ = new Success($produ);
+            $produ->Send();
+            return $produ;
          } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
