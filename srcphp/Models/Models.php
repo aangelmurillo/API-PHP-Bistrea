@@ -21,7 +21,7 @@ class Models
     public function __construct()
     {
         // Es la cadena de conexion, nombre de la base de datos, ip, usuario, contraseña
-        $cc = new Conexion("cafeteria", "localhost", "Angel", "12345");
+        $cc = new Conexion("cafeteria", "localhost", "bistrea", "bitrea1234");
         self::$pdo = $cc->getPDO();
     }
     public function create(array $obj)
