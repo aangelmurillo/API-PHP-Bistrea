@@ -99,7 +99,7 @@ Router::post('/insertarproducto',[ProductosController::class, "Insertarproducto"
 
 
 //registro usuario
-Router::post('/usuarioi',[UserController::class,'registro']);
+Router::post('/registrousuario',[UserController::class,'registro']);
 
 
 //authenticacion
