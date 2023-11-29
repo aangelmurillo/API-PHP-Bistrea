@@ -10,58 +10,56 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-    public function verproductosvendidos()
-    {
-        try {
-            $pedid = Table::query("SELECT
-        CONCAT(u.nombre_usuario, ' ', u.apellido_p_usuario) AS Nombre,
-        p.fecha_realizado_pedido AS Fecha,
-        u.telefono_usuario AS Telefono,
-        pr.nombre_producto AS Producto,
-        dp.cantidad_producto AS Cantidad,
-        dp.subtotal_pedido AS Subtotal,
-        (SELECT SUM(subtotal_pedido) FROM detalles_pedido WHERE id_pedido = p.id) AS Total
-    FROM pedidos_clientes pc
-    INNER JOIN pedidos p ON pc.id_pedido = p.id
-    INNER JOIN detalles_pedido dp ON p.id = dp.id_pedido
-    INNER JOIN usuarios u ON pc.id_usuario = u.id
-    INNER JOIN productos pr ON dp.id_producto = pr.id;");
-            $pedid = new Success($pedid);
-            
-            $pedid->Send();
-        } catch (\Exception $e) {
-            $s = new Failure(401, $e->getMessage());
-            return $s->Send();
-        }
+   public function verproductosvendidos()
+   {
+    try{
+        $pedid = Table::query("SELECT
+        pedidos.fecha_realizado_pedido AS Fecha,
+        productos.nombre_producto AS Producto,
+        productos.precio_unitario_producto AS PrecioUnitario,
+        SUM(detalles_pedido.cantidad_producto) AS Piezas,
+        SUM(detalles_pedido.cantidad_producto * productos.precio_unitario_producto) AS Total
+    FROM pedidos
+    INNER JOIN detalles_pedido ON pedidos.id = detalles_pedido.id_pedido
+    INNER JOIN productos ON detalles_pedido.id_producto = productos.id
+    GROUP BY pedidos.fecha_realizado_pedido, productos.nombre_producto
+    ORDER BY pedidos.fecha_realizado_pedido;");
+    $pedid = new Success($pedid);
+    $pedid ->Send();
+    return $pedid;
+    }catch(\Exception $e){
+        $s = new Failure(401, $e->getMessage());
+        return $s->Send();
     }
-    /*try {
-     $prod = Table::query("select * from productos" );
-    $prods = new Success ($prod);
-    $prods->Send();
-    return $prods;
+   }
+        /*try {
+         $prod = Table::query("select * from productos" );
+        $prods = new Success ($prod);
+        $prods->Send();
+        return $prods;
 
-    $r = new Success($prods);
-    return $r->Send();
-}catch (\Exception $e){
-    $r = new Failure(401, $e->getMessage());
-    return $r->Send();
-}
-    // Ruta para obtener los datos de los productos
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['endpoint']) && $_GET['endpoint'] === 'productos') {
-        $query = 'SELECT * FROM productos';
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Devolver los datos de los productos en formato JSON
-        header('Content-Type: application/json');
-        echo json_encode($productos);
-        exit;
-    }*/
+        $r = new Success($prods);
+        return $r->Send();
+    }catch (\Exception $e){
+        $r = new Failure(401, $e->getMessage());
+        return $r->Send();
+    }
+        // Ruta para obtener los datos de los productos
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['endpoint']) && $_GET['endpoint'] === 'productos') {
+            $query = 'SELECT * FROM productos';
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Devolver los datos de los productos en formato JSON
+            header('Content-Type: application/json');
+            echo json_encode($productos);
+            exit;
+        }*/
 
     public function Insertarprod()
     {
-
+        
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
@@ -74,11 +72,11 @@ class ProductosController
             $prod->stock_producto = $dataObject->stock_producto;
             $prod->img_producto = $dataObject->img_producto;
             $prod->slug_producto = $dataObject->slug_producto;
-            $prod->id_categoria = $dataObject->id_categoria;
-            $prod->especialidad_producto = $dataObject->especialidad_producto;
-            $prod->estado_producto = $dataObject->estado_producto;
-            $prod->medida_producto = $dataObject->medida_producto;
-            $prod->id_medida = $dataObject->id_medida;
+            $prod-> id_categoria = $dataObject->id_categoria;
+            $prod-> especialidad_producto = $dataObject->especialidad_producto;
+            $prod-> estado_producto = $dataObject->estado_producto;
+            $prod-> medida_producto = $dataObject->medida_producto;
+            $prod-> id_medida = $dataObject->id_medida;
             $prod->save();
 
             $s = new Success($prod);
@@ -94,14 +92,14 @@ class ProductosController
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-
+    
             // Checking if id is provided
             if (!property_exists($dataObject, 'id')) {
                 throw new \Exception("Debe proporcionar el ID del producto para actualizar");
             }
-
+    
             $id = $dataObject->id;
-
+    
             $sql = "UPDATE productos SET ";
             $values = [];
 
@@ -117,24 +115,24 @@ class ProductosController
                 $sql .= "existencias = :existencias, ";
                 $values[':existencias'] = $dataObject->existencias;
             }
-
+    
             // Remove trailing comma and add WHERE clause
             $sql = rtrim($sql, ', ') . " WHERE id = :id";
             $values[':id'] = $id;
-
+    
             $stmt = $this->conexion->getPDO()->prepare($sql);
             $stmt->execute($values);
-
+    
             $rowsAffected = $stmt->rowCount();
-
+    
             if ($rowsAffected === 0) {
                 throw new \Exception("No se encontró el producto con el ID proporcionado");
             }
-
+    
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Producto actualizado exitosamente.']);
             http_response_code(200);
-
+    
         } catch (\Exception $e) {
             $errorResponse = ['message' => "Error en el servidor: " . $e->getMessage()];
             header('Content-Type: application/json');
