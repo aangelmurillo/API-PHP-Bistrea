@@ -52,7 +52,8 @@ Router::get("/mostrar", function () {
 Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
-
+//ruta para ver corte de caja
+Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
 //ver productos
 Router::get('/productos', [producto::class,"productos"]);
 //ver barista
