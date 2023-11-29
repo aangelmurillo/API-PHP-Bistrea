@@ -9,6 +9,19 @@ use proyecto\Response\Success;
 
 class UsuarioController
 {
+    public function verusuario (){
+        try {
+         $emp = Table::query("select * from usuarios");
+        $empl = new Success ($emp);
+        $empl->Send();
+        return $empl;
+        }catch (\Exception $e) {
+            $errorResponse = ['message' => "Error en el servidor: " . $e->getMessage()];
+            header('Content-Type: application/json');
+            echo json_encode($errorResponse);
+            http_response_code(500);
+        }
+    }
     public function verUsuarios()
     {
         $db = Table::query("SELECT * FROM usuarios");

@@ -30,6 +30,7 @@ class producto extends Models
      {
         try{
             $produ = Table::query("select * from ". $this->table);
+            var_dump($produ);
             $produ = new Success($produ);
             $produ->Send();
             return $produ;

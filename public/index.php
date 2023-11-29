@@ -6,7 +6,7 @@ require("../vendor/autoload.php");
 /*use PDOException;
 use PDO;*/
 use proyecto\Controller\UserController;
-use proyecto\Controller\AgendaController;
+use proyecto\Controller\EmpleadoController;
 use proyecto\Controller\ProductosController;
 use proyecto\Controller\PedidoController;
 use proyecto\Models\empleado;
@@ -71,11 +71,11 @@ Router::get('/verproductos', [ProductosController::class,"verproductos"]);
 
 
 //ver barista
-Router::get('/empleado',[empleado::class,'emp']);
+Router::get('/verempleados',[EmpleadoController::class,'verempleados']);
 
 
 //ver usuarios
-Router::get('/usuario',[usuario::class,'usuario']);
+Router::get('/verusuario',[UsuarioController::class,'verusuario']);
 
 
 //ver pedidos
@@ -111,7 +111,7 @@ Router::get('/contrasena', [UserController::class, 'getpassword']);
 
 
 //ingresar empleado
-Router::post('/empleadoin',[AgendaController::class,'Insertaremplead']);
+Router::post('/empleadoin',[EmpleadoController::class,'Insertaremplead']);
 
 
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);

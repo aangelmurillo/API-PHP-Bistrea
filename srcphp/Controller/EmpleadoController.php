@@ -3,13 +3,25 @@
 namespace proyecto\Controller;
 
 use proyecto\Models\Table;
-use proyecto\Models\Telefono;
 use proyecto\Models\empleado;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
-class AgendaController
+class EmpleadoController
 {
+    public function verempleados (){
+        try {
+         $emp = Table::query("select * from empleados");
+        $empl = new Success ($emp);
+        $empl->Send();
+        return $empl;
+        }catch (\Exception $e) {
+            $errorResponse = ['message' => "Error en el servidor: " . $e->getMessage()];
+            header('Content-Type: application/json');
+            echo json_encode($errorResponse);
+            http_response_code(500);
+        }
+    }
     public function construct($conexion)
    {
     $this->conexion = $conexion;
