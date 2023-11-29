@@ -1,5 +1,6 @@
 <?php
 namespace proyecto;
+use proyecto\Controller\UsuarioController;
 require("../vendor/autoload.php");
 
 /*use PDOException;
@@ -47,13 +48,10 @@ Router::get("/mostrar", function () {
 });
 */
 
+// Ruta para ver usuarios para apartado de admin
+Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
 
 
-// Esto es codigo de ramiro
-//Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
-//Router::get('/prueba', [crearPersonaController::class, "prueba"]);
-
-//codigo pepechuy
 //ver productos
 Router::get('/productos', [producto::class,"productos"]);
 //ver barista
@@ -93,6 +91,7 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 
 });
+
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
 
