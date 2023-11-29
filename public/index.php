@@ -111,7 +111,7 @@ Router::get('/contrasena', [UserController::class, 'getpassword']);
 
 
 //ingresar empleado
-Router::post('/empleadoin',[EmpleadoController::class,'Insertaremplead']);
+Router::post("/altaempleado", [EmpleadoController::class, "altaempleado"]);
 
 
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
