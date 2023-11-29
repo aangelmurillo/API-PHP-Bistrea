@@ -10,10 +10,23 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-   public function verproductosvendidos()
-   {
-    try{
-        $pedid = Table::query("SELECT
+
+    public function verproductos()
+    {
+        try{
+            $productos = Table::query("SELECT * FROM productos");
+            $productos = new Success($productos);
+
+            $productos->Send();
+
+            return $productos;
+        }
+    }
+
+    public function verproductosvendidos()
+    {
+        try {
+            $pedid = Table::query("SELECT
         pedidos.fecha_realizado_pedido AS Fecha,
         productos.nombre_producto AS Producto,
         productos.precio_unitario_producto AS PrecioUnitario,
@@ -24,42 +37,19 @@ class ProductosController
     INNER JOIN productos ON detalles_pedido.id_producto = productos.id
     GROUP BY pedidos.fecha_realizado_pedido, productos.nombre_producto
     ORDER BY pedidos.fecha_realizado_pedido;");
-    $pedid = new Success($pedid);
-    $pedid ->Send();
-    return $pedid;
-    }catch(\Exception $e){
-        $s = new Failure(401, $e->getMessage());
-        return $s->Send();
+            $pedid = new Success($pedid);
+            $pedid->Send();
+            return $pedid;
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
     }
-   }
-        /*try {
-         $prod = Table::query("select * from productos" );
-        $prods = new Success ($prod);
-        $prods->Send();
-        return $prods;
 
-        $r = new Success($prods);
-        return $r->Send();
-    }catch (\Exception $e){
-        $r = new Failure(401, $e->getMessage());
-        return $r->Send();
-    }
-        // Ruta para obtener los datos de los productos
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['endpoint']) && $_GET['endpoint'] === 'productos') {
-            $query = 'SELECT * FROM productos';
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
-            $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            // Devolver los datos de los productos en formato JSON
-            header('Content-Type: application/json');
-            echo json_encode($productos);
-            exit;
-        }*/
 
     public function Insertarprod()
     {
-        
+
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
@@ -72,11 +62,11 @@ class ProductosController
             $prod->stock_producto = $dataObject->stock_producto;
             $prod->img_producto = $dataObject->img_producto;
             $prod->slug_producto = $dataObject->slug_producto;
-            $prod-> id_categoria = $dataObject->id_categoria;
-            $prod-> especialidad_producto = $dataObject->especialidad_producto;
-            $prod-> estado_producto = $dataObject->estado_producto;
-            $prod-> medida_producto = $dataObject->medida_producto;
-            $prod-> id_medida = $dataObject->id_medida;
+            $prod->id_categoria = $dataObject->id_categoria;
+            $prod->especialidad_producto = $dataObject->especialidad_producto;
+            $prod->estado_producto = $dataObject->estado_producto;
+            $prod->medida_producto = $dataObject->medida_producto;
+            $prod->id_medida = $dataObject->id_medida;
             $prod->save();
 
             $s = new Success($prod);
@@ -92,14 +82,14 @@ class ProductosController
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-    
+
             // Checking if id is provided
             if (!property_exists($dataObject, 'id')) {
                 throw new \Exception("Debe proporcionar el ID del producto para actualizar");
             }
-    
+
             $id = $dataObject->id;
-    
+
             $sql = "UPDATE productos SET ";
             $values = [];
 
@@ -115,24 +105,24 @@ class ProductosController
                 $sql .= "existencias = :existencias, ";
                 $values[':existencias'] = $dataObject->existencias;
             }
-    
+
             // Remove trailing comma and add WHERE clause
             $sql = rtrim($sql, ', ') . " WHERE id = :id";
             $values[':id'] = $id;
-    
+
             $stmt = $this->conexion->getPDO()->prepare($sql);
             $stmt->execute($values);
-    
+
             $rowsAffected = $stmt->rowCount();
-    
+
             if ($rowsAffected === 0) {
                 throw new \Exception("No se encontró el producto con el ID proporcionado");
             }
-    
+
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Producto actualizado exitosamente.']);
             http_response_code(200);
-    
+
         } catch (\Exception $e) {
             $errorResponse = ['message' => "Error en el servidor: " . $e->getMessage()];
             header('Content-Type: application/json');

@@ -17,6 +17,12 @@ use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
 Router::headers();
+
+Router::get("/", function () { 
+    echo "Bienvenido";
+ });
+
+
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
 
@@ -50,34 +56,64 @@ Router::get("/mostrar", function () {
 
 // Ruta para ver usuarios para apartado de admin
 Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
+
+
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
+
+
 //ruta para ver corte de caja
 Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
+
+
 //ver productos
-Router::get('/productos', [producto::class,"productos"]);
+Router::get('/verproductos', [ProductosController::class,"verproductos"]);
+
+
 //ver barista
 Router::get('/empleado',[empleado::class,'emp']);
+
+
 //ver usuarios
 Router::get('/usuario',[usuario::class,'usuario']);
+
+
 //ver pedidos
 Router::get('/verpedidos', [PedidoController::class,'verpedido']);
+
+
 //funcion login
 Router::post('/login',[UserController::class,"login"]);
+
+
 //verificacion de correo y contrasena
 Router::post('/verificacion',[UserController::class,"verificar"]);
+
+
 //actualizar productos
 Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
+
+
 //insertar productos
 Router::post('/productoi',[ProductosController::class, "Insertarprod"]);
+
+
 //registro usuario
 Router::post('/usuarioi',[UserController::class,'registro']);
+
+
 //authenticacion
 Router::post('/auth',[usuario::class,'auth']);
+
+
 //obtener contrasena
 Router::get('/contrasena', [UserController::class, 'getpassword']);
+
+
 //ingresar empleado
 Router::post('/empleadoin',[AgendaController::class,'Insertaremplead']);
+
+
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
 // Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
