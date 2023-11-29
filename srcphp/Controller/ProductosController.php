@@ -13,13 +13,16 @@ class ProductosController
 
     public function verproductos()
     {
-        try{
+        try {
             $productos = Table::query("SELECT * FROM productos");
             $productos = new Success($productos);
 
             $productos->Send();
 
             return $productos;
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
         }
     }
 
