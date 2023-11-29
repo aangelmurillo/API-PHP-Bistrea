@@ -16,9 +16,7 @@ class ProductosController
         try{
             $productos = Table::query("SELECT * FROM productos");
             $productos = new Success($productos);
-
             $productos->Send();
-
             return $productos;
         }
     }
