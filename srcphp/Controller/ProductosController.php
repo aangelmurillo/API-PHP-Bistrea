@@ -14,7 +14,7 @@ class ProductosController
     public function verproductos()
     {
         try {
-            $productos = Table::query("SELECT id, nombre_producto, descripcion_producto, precio_unitario_producto, stock_producto, img_producto, slug_producto, id_categoria, especialidad_producto, estado_producto, medida_producto, id_medida FROM productos");
+            $productos = Table::query("SELECT * FROM productos");
             $productos = new Success($productos);
             $productos->Send();
             return $productos;
