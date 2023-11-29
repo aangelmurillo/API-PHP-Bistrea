@@ -48,16 +48,14 @@ class ProductosController
     }
 
 
-    public function Insertarprod()
+    public function Insertarproducto()
     {
 
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-
             $prod = new producto();
-            $prod->id = $dataObject->id;
-            $prod->nombre_producto = $dataObject->producto;
+            $prod->nombre_producto = $dataObject->nombre_producto;
             $prod->descripcion_producto = $dataObject->descripcion_producto;
             $prod->precio_unitario_producto = $dataObject->precio_unitario_producto;
             $prod->stock_producto = $dataObject->stock_producto;
@@ -69,8 +67,8 @@ class ProductosController
             $prod->medida_producto = $dataObject->medida_producto;
             $prod->id_medida = $dataObject->id_medida;
             $prod->save();
-
             $s = new Success($prod);
+
             return $s->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());

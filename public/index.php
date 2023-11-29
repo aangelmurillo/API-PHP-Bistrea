@@ -95,7 +95,7 @@ Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
 
 
 //insertar productos
-Router::post('/productoi',[ProductosController::class, "Insertarprod"]);
+Router::post('/insertarproducto',[ProductosController::class, "Insertarproducto"]);
 
 
 //registro usuario
