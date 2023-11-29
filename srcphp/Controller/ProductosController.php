@@ -10,7 +10,28 @@ use proyecto\Response\Success;
 
 class ProductosController
 {
-   
+   public function verproductosvendidos()
+   {
+    try{
+        $pedid = Table::query("SELECT
+        pedidos.fecha_realizado_pedido AS Fecha,
+        productos.nombre_producto AS Producto,
+        productos.precio_unitario_producto AS PrecioUnitario,
+        SUM(detalles_pedido.cantidad_producto) AS Piezas,
+        SUM(detalles_pedido.cantidad_producto * productos.precio_unitario_producto) AS Total
+    FROM pedidos
+    INNER JOIN detalles_pedido ON pedidos.id = detalles_pedido.id_pedido
+    INNER JOIN productos ON detalles_pedido.id_producto = productos.id
+    GROUP BY pedidos.fecha_realizado_pedido, productos.nombre_producto
+    ORDER BY pedidos.fecha_realizado_pedido;");
+    $pedid = new Success($pedid);
+    $pedid ->Send();
+    return $pedid;
+    }catch(\Exception $e){
+        $s = new Failure(401, $e->getMessage());
+        return $s->Send();
+    }
+   }
         /*try {
          $prod = Table::query("select * from productos" );
         $prods = new Success ($prod);

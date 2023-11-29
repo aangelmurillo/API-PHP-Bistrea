@@ -50,7 +50,8 @@ Router::get("/mostrar", function () {
 
 // Ruta para ver usuarios para apartado de admin
 Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
-
+//ruta para ver productos vendidos
+Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
 
 //ver productos
 Router::get('/productos', [producto::class,"productos"]);
