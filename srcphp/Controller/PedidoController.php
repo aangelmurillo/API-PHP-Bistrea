@@ -37,7 +37,7 @@ class PedidoController
         INNER JOIN pedidos ON pedidos_clientes.id_pedido = pedidos.id
         INNER JOIN detalles_pedido ON pedidos.id = detalles_pedido.id_pedido
         INNER JOIN usuarios ON pedidos_clientes.id_usuario = usuarios.id
-        INNER JOIN productos ON detalles_pedido.id_producto = productos.id;");
+        INNER JOIN productos ON detalles_pedido.id_producto = productos.id;");
             $caj = new Success($caj);
             $caj ->Send();
             return $caj;
