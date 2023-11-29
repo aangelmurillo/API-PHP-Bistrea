@@ -29,7 +29,7 @@ class producto extends Models
      public function productos()
      {
         try{
-            $produ = Table::query("select * from productos");
+            $produ = Table::query("select * from ". $this->table);
             $produ = new Success($produ);
             $produ->Send();
             return $produ;

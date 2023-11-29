@@ -6,7 +6,8 @@ namespace proyecto\Models;
 use PDO;
 use proyecto\Auth;
 use function json_encode;
-
+use proyecto\Response\Success;
+use proyecto\Response\Failure;
 class pedido extends Models
 {
 
