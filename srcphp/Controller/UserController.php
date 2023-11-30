@@ -26,7 +26,7 @@ class UserController
             $user->foto_perfil_usuario = $dataObject->foto_perfil_usuario;
             $user->telefono_usuario = $dataObject->telefono_usuario;
             $user->status_usuario = 1;
-            // $user->creado_en_usuario = $dataObject->creado_en_usuario;
+            $user->creado_en_usuario = null;
             $user->id_rol = 3;
             $user->save();
             $r = new Success($user);
