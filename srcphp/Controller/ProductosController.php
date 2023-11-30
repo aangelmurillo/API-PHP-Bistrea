@@ -95,21 +95,11 @@ class ProductosController
 
 
             $prod->slug_producto = $dataObject->slug_producto;
-            if($dataObject->id_categoria == "Cafe"){
-                $prod->id_categoria = 2;
-            } else if($dataObject->id_categoria == "Postres"){
-                $prod->id_categoria = 1;
-            }            
+            $prod->categoria = $dataObject->categoria;            
             $prod->especialidad_producto = $dataObject->especialidad_producto;
             $prod->estado_producto = $dataObject->estado_producto;
             $prod->medida_producto = $dataObject->medida_producto;
-            if($dataObject->id_medida == "Mililitros"){
-                $prod->id_medida = 1;
-            } else if($dataObject->id_medida == "Pieza"){
-                $prod->id_medida = 2;        
-            } else if($dataObject->id_medida == "Gramos"){
-                $prod->id_medida = 3;
-            }
+            $prod->unidad_medida = $dataObject->unidad_medida;
             $prod->save();
             $s = new Success($prod);
 
