@@ -91,7 +91,7 @@ class ProductosController
                 throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
             }
 
-            $prod->foto_perfil_usuario = $rutaImagen;
+            $prod->img_producto = $rutaImagen;
 
 
             $prod->slug_producto = $dataObject->slug_producto;
