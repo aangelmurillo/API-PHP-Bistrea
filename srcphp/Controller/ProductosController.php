@@ -59,13 +59,57 @@ class ProductosController
             $prod->descripcion_producto = $dataObject->descripcion_producto;
             $prod->precio_unitario_producto = $dataObject->precio_unitario_producto;
             $prod->stock_producto = $dataObject->stock_producto;
-            $prod->img_producto = $dataObject->img_producto;
+
+            // Poder guardar imagen
+            $imagenBase64 = $dataObject->img_producto;
+            $imagenData = base64_decode($imagenBase64);
+
+            $finfo = finfo_open();
+            $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
+            finfo_close($finfo);
+
+            // Validar la extensión permitida
+            $extensionMap = [
+                'image/jpeg' => 'jpg',
+                'image/jpg' => 'jpg',
+                'image/png' => 'png',
+                'image/svg+xml' => 'svg',
+            ];
+
+            if (!array_key_exists($mime_type, $extensionMap)) {
+                throw new \Exception('Formato de imagen no permitido');
+            }
+
+            $fileExtension = $extensionMap[$mime_type];
+            $nombreImagen = uniqid() . '.' . $fileExtension;
+
+            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
+
+            file_put_contents($rutaImagen, $imagenData);
+            
+            if (file_put_contents($rutaImagen, $imagenData) === false) {
+                throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
+            }
+
+            $prod->foto_perfil_usuario = $rutaImagen;
+
+
             $prod->slug_producto = $dataObject->slug_producto;
-            $prod->id_categoria = $dataObject->id_categoria;
+            if($dataObject->id_categoria === "Cafe"){
+                $prod->id_categoria = 2;
+            } else if($dataObject->id_categoria === "Postres"){
+                $prod->id_categoria = 1;
+            }            
             $prod->especialidad_producto = $dataObject->especialidad_producto;
             $prod->estado_producto = $dataObject->estado_producto;
             $prod->medida_producto = $dataObject->medida_producto;
-            $prod->id_medida = $dataObject->id_medida;
+            if($dataObject->id_medida === "Mililitros"){
+                $prod->id_medida = 1;
+            } else if($dataObject->id_medida === "Pieza"){
+                $prod->id_medida = 2;        
+            } else if($dataObject->id_medida === "Gramos"){
+                $prod->id_medida = 3;
+            }
             $prod->save();
             $s = new Success($prod);
 
@@ -74,7 +118,7 @@ class ProductosController
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
-    }
+        }
     public function actualizarProd()
     {
 
