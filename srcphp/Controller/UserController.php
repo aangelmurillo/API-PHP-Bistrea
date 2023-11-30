@@ -21,14 +21,13 @@ class UserController
             $user->nombre_usuario = $dataObject->nombre_usuario;
             $user->apellido_p_usuario = $dataObject->apellido_p_usuario;
             $user->apellido_m_usuario = $dataObject->apellido_m_usuario;
-            $user->email_usuario = $dataObject->email_usuario;
-            $user->contrasena_usuario = $dataObject->contrasena_usuario;
+            $user->email_usuario = $dataObject->email_usuario;            
             $user->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
             $user->foto_perfil_usuario = $dataObject->foto_perfil_usuario;
             $user->telefono_usuario = $dataObject->telefono_usuario;
-            $user->status_usuario = $dataObject->status_usuario;
-            $user->creado_en_usuario = $dataObject->creado_en_usuario;
-            $user->id_rol = $dataObject->id_rol;
+            $user->status_usuario = 1;
+            // $user->creado_en_usuario = $dataObject->creado_en_usuario;
+            $user->id_rol = 3;
             $user->save();
             $r = new Success($user);
 
