@@ -53,7 +53,7 @@ class UserController
             file_put_contents($rutaImagen, $imagenData);
             
             if (file_put_contents($rutaImagen, $imagenData) === false) {
-                throw new \Exception('Error al guardar la imagen');
+                throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
             }
 
             $user->foto_perfil_usuario = $rutaImagen;
