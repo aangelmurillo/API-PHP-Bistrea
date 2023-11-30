@@ -48,9 +48,13 @@ class UserController
             $fileExtension = $extensionMap[$mime_type];
             $nombreImagen = uniqid() . '.' . $fileExtension;
 
-            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil' . $nombreImagen;
+            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
+            
+            if (file_put_contents($rutaImagen, $imagenData) === false) {
+                throw new \Exception('Error al guardar la imagen');
+            }
 
             $user->foto_perfil_usuario = $rutaImagen;
 
