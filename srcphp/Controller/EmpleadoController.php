@@ -37,7 +37,40 @@ class EmpleadoController
             $usuario->apellido_m_usuario = $dataObject->apellido_m_usuario;
             $usuario->email_usuario = $dataObject->email_usuario;            
             $usuario->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
-            $usuario->foto_perfil_usuario = $dataObject->foto_perfil_usuario;
+            
+            // Poder guardar imagen
+            $imagenBase64 = $dataObject->foto_perfil_usuario;
+            $imagenData = base64_decode($imagenBase64);
+
+            $finfo = finfo_open();
+            $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
+            finfo_close($finfo);
+
+            // Validar la extensión permitida
+            $extensionMap = [
+                'image/jpeg' => 'jpg',
+                'image/jpg' => 'jpg',
+                'image/png' => 'png',
+                'image/svg+xml' => 'svg',
+            ];
+
+            if (!array_key_exists($mime_type, $extensionMap)) {
+                throw new \Exception('Formato de imagen no permitido');
+            }
+
+            $fileExtension = $extensionMap[$mime_type];
+            $nombreImagen = uniqid() . '.' . $fileExtension;
+
+            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
+
+            file_put_contents($rutaImagen, $imagenData);
+            
+            if (file_put_contents($rutaImagen, $imagenData) === false) {
+                throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
+            }
+
+            $usuario->foto_perfil_usuario = $rutaImagen;
+
             $usuario->telefono_usuario = $dataObject->telefono_usuario;
             $usuario->status_usuario = $dataObject->status_usuario;
             $usuario->creado_en_usuario = $dataObject->creado_en_usuario;
