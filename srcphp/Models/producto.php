@@ -49,11 +49,11 @@ class producto extends Models
     "stock_producto",
     "img_producto",
     "slug_producto",
-    "id_categoria",
+    "categoria",
     "especialidad_producto",
     "estado_producto",
     "medida_producto",
-    "id_medida"
+    "unidad_medida"
   ];
 
 }
