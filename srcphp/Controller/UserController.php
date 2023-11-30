@@ -12,7 +12,7 @@ use PDO;
 class UserController
 {
 
-    function registro()
+    function registrousuario()
     {
         try {
             $JSONData = file_get_contents("php://input");
