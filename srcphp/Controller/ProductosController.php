@@ -48,11 +48,11 @@ class ProductosController
             $rowsAffected = $stmt->rowCount();
 
             if ($rowsAffected === 0) {
-                throw new \Exception("No se encontró el cliente con el ID proporcionado");
+                throw new \Exception("No se encontró el producto con el ID proporcionado");
             }
 
             header('Content-Type: application/json');
-            echo json_encode(['message' => 'Cliente actualizado exitosamente.']);
+            echo json_encode(['message' => 'Stock de producto actualizado exitosamente.']);
             http_response_code(200);
 
 
