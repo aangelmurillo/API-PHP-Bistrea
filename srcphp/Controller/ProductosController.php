@@ -43,7 +43,13 @@ class ProductosController
             $values[':id'] = $id;
 
             $stmt = $this->conexion->getPDO()->prepare($sql);
-            $stmt->execute($values);
+
+            // Bind values to parameters
+            foreach ($values as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+
+            $stmt->execute();
 
             $rowsAffected = $stmt->rowCount();
 
@@ -54,13 +60,12 @@ class ProductosController
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Stock de producto actualizado exitosamente.']);
             http_response_code(200);
-
-
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
     }
+
 
     public function verproductos()
     {
