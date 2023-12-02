@@ -7,9 +7,60 @@ use proyecto\Models\Table;
 use proyecto\Models\producto;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
+use proyecto\Conexion;
 
 class ProductosController
 {
+    private $conexion;
+
+    public function __construct()
+    {
+        $this->conexion = new Conexion('cafeteria', 'localhost:3306', 'bistrea', 'bistrea1234');
+    }
+
+    public function actualizarstock()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            if (!property_exists($dataObject, 'id')) {
+                throw new \Exception("Debe proporcionar el ID del producto");
+            }
+
+            $id = $dataObject->id;
+
+            $sql = "UPDATE productos SET ";
+            $values = [];
+
+            if (property_exists($dataObject, 'stock_producto')) {
+                $sql .= "stock_producto = :stock_producto, ";
+                $values[':stock_producto'] = $dataObject->stock_producto;
+            }
+
+            // Remove trailing comma and add WHERE clause
+            $sql = rtrim($sql, ', ') . " WHERE id = :id";
+            $values[':id'] = $id;
+
+            $stmt = $this->conexion->getPDO()->prepare($sql);
+            $stmt->execute($values);
+
+            $rowsAffected = $stmt->rowCount();
+
+            if ($rowsAffected === 0) {
+                throw new \Exception("No se encontró el cliente con el ID proporcionado");
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode(['message' => 'Cliente actualizado exitosamente.']);
+            http_response_code(200);
+
+
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
 
     public function verproductos()
     {
@@ -86,7 +137,7 @@ class ProductosController
             $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
-            
+
             if (file_put_contents($rutaImagen, $imagenData) === false) {
                 throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
             }
@@ -95,7 +146,7 @@ class ProductosController
 
 
             $prod->slug_producto = $dataObject->slug_producto;
-            $prod->categoria = $dataObject->categoria;            
+            $prod->categoria = $dataObject->categoria;
             $prod->especialidad_producto = $dataObject->especialidad_producto;
             $prod->estado_producto = $dataObject->estado_producto;
             $prod->medida_producto = $dataObject->medida_producto;
@@ -108,7 +159,7 @@ class ProductosController
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
-        }
+    }
     public function actualizarProd()
     {
 
