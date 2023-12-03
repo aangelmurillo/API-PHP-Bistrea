@@ -159,12 +159,12 @@ class ProductosController
                 'nombre_producto' => $dataObject->nombre_producto,
                 'descripcion_producto' => $dataObject->descripcion_producto,
                 'precio_producto' => $dataObject->precio_unitario_producto,
-                'img' => $dataObject->img,
-                'slug' => $dataObject->slug,
+                'img' => $dataObject->img_producto,
+                'slug' => $dataObject->slug_producto,
                 'categoria' => $dataObject->categoria,
-                'especialidad' => $dataObject->especialidad,
-                'medida' => $dataObject->medida,
-                'unidad' => $dataObject->unidad,
+                'especialidad' => $dataObject->especialidad_producto,
+                'medida' => $dataObject->medida_producto,
+                'unidad' => $dataObject->unidad_medida,
             ];
             
             $resultados = Table::queryParams($query, $params);
