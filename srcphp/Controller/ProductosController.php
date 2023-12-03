@@ -40,7 +40,7 @@ class ProductosController
 
             // Remove trailing comma and add WHERE clause
             $sql = rtrim($sql, ', ') . " WHERE id = :id";
-            $values[':id'] = $id;
+            $values[':id'] = intval($id);
 
             $stmt = $this->conexion->getPDO()->prepare($sql);
 
