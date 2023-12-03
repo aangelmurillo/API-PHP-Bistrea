@@ -1,9 +1,13 @@
 <?php
 
+
+
+
 namespace proyecto\Controller;
-use proyecto\Auth;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
+use proyecto\Response\Response;
+use proyecto\Auth;
 use proyecto\Models\usuario;
 use proyecto\Models\Table;
 use proyecto\Models\Models;
@@ -42,7 +46,23 @@ class UserController
 
     }
 
+    public static function auth()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+            if (!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
+                throw new \Exception("Faltan datos");
+            }
+            return Usuario::auth($dataObject->email_usuario, $dataObject->contrasena_usuario);
 
+        } catch (\Exception $e) {
+            $r = new Failure(401, $e->getMessage());
+            return $r->Send();
+        }
+
+    }
+    
     public function verificar()
     {
         try {
@@ -106,6 +126,7 @@ class UserController
 
 
     }
+
     public function login()
     {
         $JSONData = file_get_contents("php://input");
@@ -132,7 +153,7 @@ class UserController
                 $storedPassword = $user[0]->contrasena_usuario;
     
                 if (password_verify($contrasena_usuario, $storedPassword)) {
-                    $token = Auth::generateToken([$user[0]->id]); // Asegúrate de que sea la clave primaria correcta
+                    $token = auth::generateToken([$user[0]->id]); // Asegúrate de que sea la clave primaria correcta
                     return ['success' => true, 'token' => $token];
                 } else {
                     return ['success' => false, 'message' => 'Credenciales incorrectas'];
@@ -145,8 +166,13 @@ class UserController
         }
     }
     
-    
-    
+    public function all()
+    {
+        $user=usuario::where("id", "=", '$id' );
+        $r=new Success($user);
+        return $r->Send();
+    }
+
     /*private function generateSessionToken($userId)
     {
         $tokenData = [
@@ -199,4 +225,23 @@ class UserController
             return json_encode(['success' => true, 'token' => $token]);
         } else {
             return json_encode(['success' => false, 'message' => 'Credenciales incorrectas']);
-        }*/
+        }
+        
+           public static function auth()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+            if (!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
+                throw new \Exception("Faltan datos");
+            }
+            return Usuario::auth($dataObject->email_usuario, $dataObject->contrasena_usuario);
+
+        } catch (\Exception $e) {
+            $r = new Failure(401, $e->getMessage());
+            return $r->Send();
+        }
+
+    }
+        
+        */

@@ -57,24 +57,28 @@ class usuario extends Models
             http_response_code(500);
         }
     }
-    public static function auth($email_usuario, $contrasena_usuario):Response
-    {
-        $class = get_called_class();
-        $c = new $class();
-        $stmt = self::$pdo->prepare("select *  from $c->table  where  email_usuario =:email_usuario  and contrasena_usuario=:contrasena_usuario");
-        $stmt->bindParam(":email_usuario", $email_usuario);
-        $stmt->bindParam(":contrasena_usuario", $contrasena_usuario);
-        $stmt->execute();
-        $resultados = $stmt->fetchAll(PDO::FETCH_CLASS,usuario::class);
+    public static function auth($email_usuario, $contrasena_usuario): Response
+{
+    $class = get_called_class();
+    $c = new $class();
+    $stmt = self::$pdo->prepare("SELECT * FROM {$c->table} WHERE email_usuario = :email_usuario");
+    $stmt->bindParam(":email_usuario", $email_usuario);
+    $stmt->execute();
+    $resultados = $stmt->fetchAll(PDO::FETCH_CLASS, usuario::class);
 
-        if ($resultados) {
-//            Auth::setUser($resultados[0]);  pendiente
-            $r=new Success(["email_usuario"=>$resultados[0],"_token"=>Auth::generateToken([$resultados[0]->id])]);
-           return  $r->Send();
+    if ($resultados) {
+        $hashedPassword = $resultados[0]->contrasena_usuario;
+
+        if (password_verify($contrasena_usuario, $hashedPassword)) {
+            $r = new Success(["usuario" => $resultados[0], "_token" => Auth::generateToken([$resultados[0]->id])]);
+            return $r->Send();
         }
-        $r=new Failure(401,"Usuario o contraseña incorrectos");
-        return $r->Send(); 
     }
+
+    $r = new Failure(401, "Usuario o contrasena incorrectos");
+    return $r->Send();
+}
+
     
     public function find_name($nombre_usuario)
     {

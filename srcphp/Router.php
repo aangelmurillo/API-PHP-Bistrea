@@ -10,8 +10,11 @@ use proyecto\Response\Failure;
 
 class Router
 {
-    public static function get($route, $path_to_include)
+    public static function get($route, $path_to_include, $valid_token = false)
     {
+        if ($valid_token) {
+            self::is_token_valid();
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             Router::route($route, $path_to_include);
         }
@@ -60,7 +63,7 @@ class Router
                 return;
             }
         }
-        if (is_array($callback)) {
+        if (is_array($callback,)) {
             try {
                 $i = new $callback[0]();
                 call_user_func_array([$i, $callback[1]], $parameters);
@@ -94,7 +97,6 @@ class Router
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         header('Access-Control-Allow-Credentials: true');
 
-
     }
 
     public static function post($route, $path_to_include, $valid_token = false)
@@ -109,7 +111,7 @@ class Router
 
     public static function is_token_valid()
     {
-        $secretKey = 'orimar174';
+        $secretKey = 'bistrea1234';
         $jwt = self::getBearerToken();
         try {
             $token = JWT::decode($jwt, new key($secretKey, 'HS256'));

@@ -17,6 +17,7 @@ use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
 Router::headers();
+Router::getBearerToken();
 
 Router::get("/", function () { 
     echo "Bienvenido";
@@ -77,6 +78,9 @@ Router::get('/verempleados',[EmpleadoController::class,'verempleados']);
 //ver usuarios
 Router::get('/verusuario',[UsuarioController::class,'verusuario']);
 
+//prueba usuarios
+Router::post('/usuario',[UsuarioController::class,'all',true]);
+//                   /$id, fuction ($id) 
 
 //ver pedidos
 Router::get('/verpedidos', [PedidoController::class,'verpedido']);
@@ -103,12 +107,12 @@ Router::post('/registrousuario',[UserController::class,'registro']);
 
 
 //authenticacion
-Router::post('/auth',[usuario::class,'auth']);
-
+Router::post('/auth',[UserController::class, 'auth']);
 
 //obtener contrasena
 Router::get('/contrasena', [UserController::class, 'getpassword']);
 
+Router::get('/all', [UserController::class, 'all']);
 
 //ingresar empleado
 Router::post('/empleadoin',[EmpleadoController::class,'Insertaremplead']);
