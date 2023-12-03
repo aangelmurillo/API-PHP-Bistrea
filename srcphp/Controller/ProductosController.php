@@ -158,9 +158,9 @@ class ProductosController
                     'image/svg+xml' => 'svg',
                 ];
 
-                if (!array_key_exists($mime_type, $extensionMap)) {
+                /*if (!array_key_exists($mime_type, $extensionMap)) {
                     throw new \Exception('Formato de imagen no permitido');
-                }
+                }*/
 
                 $fileExtension = $extensionMap[$mime_type];
                 $nombreImagen = uniqid() . '.' . $fileExtension;
