@@ -141,7 +141,8 @@ class ProductosController
             $dataObject = json_decode($JSONData);
 
             // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
-            $resultados = Table::query("CALL actualizar_producto ('{$dataObject->id} ',' {$dataObject->nombre_producto}' ',' '{$dataObject->descripcion_producto}' ',' '{$dataObject->precio_producto}' ',' '{$dataObject->img}' ',' '{$dataObject->slug}' ',' '{$dataObject->categoria}' ',' '{$dataObject->especialidad}' ',' '{$dataObject->medida}' ',' '{$dataObject->unidad}')");
+            $resultados = Table::query("CALL actualizar_producto ('{$dataObject->id}', '{$dataObject->nombre_producto}', '{$dataObject->descripcion_producto}', '{$dataObject->precio_producto}', '{$dataObject->img}', '{$dataObject->slug}', '{$dataObject->categoria}', '{$dataObject->especialidad}', '{$dataObject->medida}', '{$dataObject->unidad}')");
+
 
             $r = new Success($resultados);
             return $r->Send();
@@ -151,4 +152,26 @@ class ProductosController
             return $s->Send();
         }
     }
+
+    public function eliminarproducto()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            $producto = new producto();
+
+            $producto = $dataObject->id;
+
+            $db = producto::deleteby("id", "=", $producto);
+
+            $r = new Success($db);
+            return $r->Send();
+
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
 }
