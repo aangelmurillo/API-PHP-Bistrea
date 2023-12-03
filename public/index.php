@@ -120,8 +120,8 @@ Router::get('/all', [UserController::class, 'all']);
 
 //ingresar empleado
 Router::post("/altaempleado", [EmpleadoController::class, "altaempleado"]);
-
-
+//hacer pedido
+Router::post("/hacerpedido", [PedidoController::class,"hacerpedido"]);
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
 // Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);

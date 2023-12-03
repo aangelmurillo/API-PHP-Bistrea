@@ -22,7 +22,28 @@ class PedidoController
             return $s->Send();
         }
     }
-    
+    public function hacerpedido(){
+        try{
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+            $pedid = new pedido();
+            $pedid -> fecha_realizado_pedido = $dataObject -> fecha_realizado_pedido;
+            $pedid -> hora_realizado_pedido = $dataObject -> hora_realizado_pedido;
+            $pedid ->hora_entrega_pedido = $dataObject -> hora_entrega_pedido;
+            $pedid -> estado_pedido = $dataObject -> estado_pedido;
+            $pedid ->info_pedido = $dataObject -> info_pedido;
+            $pedid -> op_pedido = $dataObject -> id_empleado;
+            $pedid -> id_empleado = $dataObject -> id_empleado;
+            $pedid -> nombre_cliente_pedido = $dataObject -> nombre_cliente_pedido;
+            $pedid -> total_pedido = $dataObject -> total_pedido;
+            $pedid->save();
+            $r = new Success($pedid);
+            return $r->Send();
+        } catch (\Exception $e) {
+            $r = new Failure(401, $e->getMessage());
+            return $r->Send();
+        }
+    }
     public function vercortedecaja()
 {
     try {
