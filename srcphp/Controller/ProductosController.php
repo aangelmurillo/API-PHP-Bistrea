@@ -158,7 +158,7 @@ class ProductosController
                 'id' => $dataObject->id,
                 'nombre_producto' => $dataObject->nombre_producto,
                 'descripcion_producto' => $dataObject->descripcion_producto,
-                'precio_producto' => $dataObject->precio_producto,
+                'precio_producto' => $dataObject->precio_unitario_producto,
                 'img' => $dataObject->img,
                 'slug' => $dataObject->slug,
                 'categoria' => $dataObject->categoria,
