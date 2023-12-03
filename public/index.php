@@ -1,6 +1,8 @@
 <?php
 namespace proyecto;
+
 use proyecto\Controller\UsuarioController;
+
 require("../vendor/autoload.php");
 
 /*use PDOException;
@@ -19,9 +21,9 @@ use proyecto\Response\Success;
 Router::headers();
 Router::getBearerToken();
 
-Router::get("/", function () { 
+Router::get("/", function () {
     echo "Bienvenido";
- });
+});
 
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
@@ -60,60 +62,60 @@ Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"])
 
 
 //ruta para ver productos vendidos
-Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
+Router::get('/verproductosvendidos', [ProductosController::class, "verproductosvendidos"]);
 
 // Ruta para actualizar producto
-Router::post("/actualizarproducto", [ProductosController::class,"actualizarproducto"]);
+Router::post("/actualizarproducto", [ProductosController::class, "actualizarproducto"]);
 
 // Ruta para eliminar producto
-Router::post("/eliminarproducto", [ProductosController::class,"eliminarproducto"]);
+Router::post("/eliminarproducto", [ProductosController::class, "eliminarproducto"]);
 
 //ruta para ver corte de caja
-Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
+Router::get('/vercortedecaja', [PedidoController::class, "vercortedecaja"]);
 
 // Ruta para actualizar el stock en producto
-Router::post("/actualizarstock", [ProductosController::class,"actualizarstock"]);
+Router::post("/actualizarstock", [ProductosController::class, "actualizarstock"]);
 
 //ver productos
-Router::get('/verproductos', [ProductosController::class,"verproductos"]);
+Router::get('/verproductos', [ProductosController::class, "verproductos"]);
 
 //ver barista
-Router::get('/verempleados',[EmpleadoController::class,'verempleados']);
+Router::get('/verempleados', [EmpleadoController::class, 'verempleados']);
 
 
 //ver usuarios
-Router::get('/verusuario',[UsuarioController::class,'verusuario']);
+Router::get('/verusuario', [UsuarioController::class, 'verusuario']);
 
 //prueba usuarios
-Router::post('/usuario',[UsuarioController::class,'all',true]);
+Router::post('/usuario', [UsuarioController::class, 'all', true]);
 //                   /$id, fuction ($id) 
 
 //ver pedidos
-Router::get('/verpedidos', [PedidoController::class,'verpedido']);
+Router::get('/verpedidos', [PedidoController::class, 'verpedido']);
 
 
 //funcion login
-Router::post('/login',[UserController::class,"login"]);
+Router::post('/login', [UserController::class, "login"]);
 
 
 //verificacion de correo y contrasena
-Router::post('/verificacion',[UserController::class,"verificar"]);
+Router::post('/verificacion', [UserController::class, "verificar"]);
 
 
 //actualizar productos
-Router::put('/productoa',[ProductosController::class,"actualizarProd"]);
+Router::put('/productoa', [ProductosController::class, "actualizarProd"]);
 
 
 //insertar productos
-Router::post('/insertarproducto',[ProductosController::class, "Insertarproducto"]);
+Router::post('/insertarproducto', [ProductosController::class, "Insertarproducto"]);
 
 
 //registro usuario
-Router::post('/registrousuario',[UserController::class,'registrousuario']);
+Router::post('/registrousuario', [UserController::class, 'registrousuario']);
 
 
 //authenticacion
-Router::post('/auth',[UserController::class, 'auth']);
+Router::post('/auth', [UserController::class, 'auth']);
 
 //obtener contrasena
 Router::get('/contrasena', [UserController::class, 'getpassword']);
@@ -123,7 +125,7 @@ Router::get('/all', [UserController::class, 'all']);
 //ingresar empleado
 Router::post("/altaempleado", [EmpleadoController::class, "altaempleado"]);
 //hacer pedido
-Router::post("/hacerpedido", [PedidoController::class,"hacerpedido"]);
+Router::post("/hacerpedido", [PedidoController::class, "hacerpedido"]);
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
 
 // Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);

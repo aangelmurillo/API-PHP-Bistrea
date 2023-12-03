@@ -140,9 +140,69 @@ class ProductosController
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
-            $resultados = Table::query("CALL actualizar_producto ('{$dataObject->id}', '{$dataObject->nombre_producto}', '{$dataObject->descripcion_producto}', '{$dataObject->precio_producto}', '{$dataObject->img}', '{$dataObject->slug}', '{$dataObject->categoria}', '{$dataObject->especialidad}', '{$dataObject->medida}', '{$dataObject->unidad}')");
+            // Verificar si se proporcionó una nueva imagen en formato base64
+            if (isset($dataObject->img_producto)) {
+                // Procesar la nueva imagen
+                $imagenBase64 = $dataObject->img_producto;
+                $imagenData = base64_decode($imagenBase64);
 
+                $finfo = finfo_open();
+                $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
+                finfo_close($finfo);
+
+                // Validar la extensión permitida
+                $extensionMap = [
+                    'image/jpeg' => 'jpg',
+                    'image/jpg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/svg+xml' => 'svg',
+                ];
+
+                if (!array_key_exists($mime_type, $extensionMap)) {
+                    throw new \Exception('Formato de imagen no permitido');
+                }
+
+                $fileExtension = $extensionMap[$mime_type];
+                $nombreImagen = uniqid() . '.' . $fileExtension;
+
+                $rutaImagen = '/var/www/html/apiPhp/public/img/productos/' . $nombreImagen;
+
+                if (file_put_contents($rutaImagen, $imagenData) === false) {
+                    throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
+                }
+
+                // Actualizar la propiedad foto_perfil_usuario en $dataObject
+                $dataObject->img_producto = $rutaImagen;
+            }
+
+            // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
+            $query = "CALL actualizar_producto (
+                :id,
+                :nombre_producto,
+                :descripcion_producto,
+                :precio_producto,
+                :img,
+                :slug,
+                :categoria,
+                :especialidad,
+                :medida,
+                :unidad
+            )";
+
+            $params = [
+                'id' => $dataObject->id,
+                'nombre_producto' => $dataObject->nombre_producto,
+                'descripcion_producto' => $dataObject->descripcion_producto,
+                'precio_producto' => $dataObject->precio_unitario_producto,
+                'img' => $dataObject->img_producto,
+                'slug' => $dataObject->slug_producto,
+                'categoria' => $dataObject->categoria,
+                'especialidad' => $dataObject->especialidad_producto,
+                'medida' => $dataObject->medida_producto,
+                'unidad' => $dataObject->unidad_medida,
+            ];
+
+            $resultados = Table::queryParams($query, $params);
 
             $r = new Success($resultados);
             return $r->Send();
