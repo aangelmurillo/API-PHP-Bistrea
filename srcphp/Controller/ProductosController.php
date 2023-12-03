@@ -141,7 +141,7 @@ class ProductosController
             $dataObject = json_decode($JSONData);
 
             // Verificar si se proporcionó una nueva imagen en formato base64
-            if (isset($dataObject->img_producto)) {
+            if (isset($dataObject->img_producto) && $dataObject->img_producto != null) {
                 // Procesar la nueva imagen
                 $imagenBase64 = $dataObject->img_producto;
                 $imagenData = base64_decode($imagenBase64);
@@ -173,6 +173,8 @@ class ProductosController
 
                 // Actualizar la propiedad foto_perfil_usuario en $dataObject
                 $dataObject->img_producto = $rutaImagen;
+            } else {
+                $rutaImagen = $dataObject->img_producto;
             }
 
             // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
@@ -201,6 +203,10 @@ class ProductosController
                 'medida' => $dataObject->medida_producto,
                 'unidad' => $dataObject->unidad_medida,
             ];
+
+            if($dataObject->img_producto == null ) {
+                unset($params['img']);
+            }
 
             $resultados = Table::queryParams($query, $params);
 
