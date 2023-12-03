@@ -61,6 +61,8 @@ Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"])
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
 
+// Ruta para actualizar producto
+Router::post("/actualizarproducto", [ProductosController::class,"actualizarproducto"]);
 
 //ruta para ver corte de caja
 Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
