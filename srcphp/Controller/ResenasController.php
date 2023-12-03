@@ -13,7 +13,7 @@ class ResenasController
     public function verresenas()
     {
         try {
-            $pedid = Table::query("SELECT CONCAT(nombre_usuario, apellido_p_usuario, apellido_m_usuario) AS Nombre, telefono_usuario AS Telefono, comentario_resena AS Resena
+            $pedid = Table::query("SELECT nombre_usuario, apellido_p_usuario, apellido_m_usuario, telefono_usuario AS Telefono, comentario_resena AS Resena
             FROM usuarios
             INNER JOIN resenas
             ON resenas.id_usuario=usuarios.id;");
