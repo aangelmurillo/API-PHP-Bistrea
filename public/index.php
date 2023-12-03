@@ -62,10 +62,14 @@ Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"])
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class,"verproductosvendidos"]);
 
+// Ruta para actualizar producto
+Router::post("/actualizarproducto", [ProductosController::class,"actualizarproducto"]);
 
 //ruta para ver corte de caja
 Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
 
+// Ruta para actualizar el stock en producto
+Router::post("/actualizarstock", [ProductosController::class,"actualizarstock"]);
 
 //ver productos
 Router::get('/verproductos', [ProductosController::class,"verproductos"]);
@@ -103,7 +107,7 @@ Router::post('/insertarproducto',[ProductosController::class, "Insertarproducto"
 
 
 //registro usuario
-Router::post('/registrousuario',[UserController::class,'registro']);
+Router::post('/registrousuario',[UserController::class,'registrousuario']);
 
 
 //authenticacion
@@ -115,7 +119,7 @@ Router::get('/contrasena', [UserController::class, 'getpassword']);
 Router::get('/all', [UserController::class, 'all']);
 
 //ingresar empleado
-Router::post('/empleadoin',[EmpleadoController::class,'Insertaremplead']);
+Router::post("/altaempleado", [EmpleadoController::class, "altaempleado"]);
 
 
 // Router::get('/prueba', [crearPersonaController::class, "prueba"]);
