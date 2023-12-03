@@ -24,7 +24,7 @@ class ProductosController
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            $resultados = Table::query("CALL actualizar_stock_producto ('{$dataObject->cantidad} ',' {$dataObject->id}')");
+            $resultados = Table::query("CALL actualizar_stock_producto ('{$dataObject->id} ',' {$dataObject->cantidad}')");
 
             $r = new Success($resultados);
             return $r->Send();
