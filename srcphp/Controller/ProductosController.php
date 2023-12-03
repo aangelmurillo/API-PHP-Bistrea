@@ -24,37 +24,10 @@ class ProductosController
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            if (!property_exists($dataObject, 'id')) {
-                throw new \Exception("Debe proporcionar el ID del producto");
-            }
+            $resultados = Table::query("CALL actualizar_stock_producto ('{$dataObject->cantidad}, {$dataObject->id}')");
 
-            $id = $dataObject->id;
-
-            $sql = "UPDATE productos SET ";
-            $values = [];
-
-            if (property_exists($dataObject, 'stock_producto')) {
-                $sql .= "stock_producto = :stock_producto, ";
-                $values[':stock_producto'] = $dataObject->stock_producto;
-            }
-
-            // Remove trailing comma and add WHERE clause
-            $sql = rtrim($sql, ', ') . " WHERE id = :id";
-            $values[':id'] = $id;
-
-            $stmt = $this->conexion->getPDO()->prepare($sql);
-            $stmt->execute($values);
-
-            $rowsAffected = $stmt->rowCount();
-
-            if ($rowsAffected === 0) {
-                throw new \Exception("No se encontró el producto con el ID proporcionado");
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode(['message' => 'Producto actualizado exitosamente.']);
-            http_response_code(200);
-
+            $r = new Success($resultados);
+            return $r->Send();
 
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
