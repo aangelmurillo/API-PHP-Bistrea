@@ -172,7 +172,7 @@ class ProductosController
                 }
 
                 // Actualizar la propiedad foto_perfil_usuario en $dataObject
-                $dataObject->foto_perfil_usuario = $rutaImagen;
+                $dataObject->img_producto = $rutaImagen;
             }
 
             // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
