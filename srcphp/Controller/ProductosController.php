@@ -141,8 +141,33 @@ class ProductosController
             $dataObject = json_decode($JSONData);
 
             // Forma de parametros del SP id_producto, nombre, descripcion, precio, img, slug, categoria, especialidad, medida, unidad
-            $resultados = Table::query("CALL actualizar_producto ('{$dataObject->id}', '{$dataObject->nombre_producto}', '{$dataObject->descripcion_producto}', '{$dataObject->precio_producto}', '{$dataObject->img}', '{$dataObject->slug}', '{$dataObject->categoria}', '{$dataObject->especialidad}', '{$dataObject->medida}', '{$dataObject->unidad}')");
-
+            $query = "CALL actualizar_producto (
+                :id,
+                :nombre_producto,
+                :descripcion_producto,
+                :precio_producto,
+                :img,
+                :slug,
+                :categoria,
+                :especialidad,
+                :medida,
+                :unidad
+            )";
+            
+            $params = [
+                'id' => $dataObject->id,
+                'nombre_producto' => $dataObject->nombre_producto,
+                'descripcion_producto' => $dataObject->descripcion_producto,
+                'precio_producto' => $dataObject->precio_producto,
+                'img' => $dataObject->img,
+                'slug' => $dataObject->slug,
+                'categoria' => $dataObject->categoria,
+                'especialidad' => $dataObject->especialidad,
+                'medida' => $dataObject->medida,
+                'unidad' => $dataObject->unidad,
+            ];
+            
+            $resultados = Table::queryParams($query, $params);
 
             $r = new Success($resultados);
             return $r->Send();
