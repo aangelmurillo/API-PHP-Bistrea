@@ -152,4 +152,26 @@ class ProductosController
             return $s->Send();
         }
     }
+
+    public function eliminarproducto()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            $producto = new producto();
+
+            $producto = $dataObject->id;
+
+            $db = producto::deleteby("id", "=", $producto);
+
+            $r = new Success($db);
+            return $r->Send();
+
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
 }

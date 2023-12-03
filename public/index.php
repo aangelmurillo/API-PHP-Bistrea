@@ -64,6 +64,9 @@ Router::get('/verproductosvendidos', [ProductosController::class,"verproductosve
 // Ruta para actualizar producto
 Router::post("/actualizarproducto", [ProductosController::class,"actualizarproducto"]);
 
+// Ruta para eliminar producto
+Router::post("/eliminarproducto", [ProductosController::class,"eliminarproducto"]);
+
 //ruta para ver corte de caja
 Router::get('/vercortedecaja', [PedidoController::class,"vercortedecaja"]);
 
