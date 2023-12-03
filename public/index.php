@@ -77,7 +77,6 @@ Router::post("/actualizarstock", [ProductosController::class,"actualizarstock"])
 //ver productos
 Router::get('/verproductos', [ProductosController::class,"verproductos"]);
 
-
 //ver barista
 Router::get('/verempleados',[EmpleadoController::class,'verempleados']);
 

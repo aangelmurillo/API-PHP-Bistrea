@@ -140,23 +140,6 @@ class UserController
         return false;
     }
 
-    function buscar()
-    {
-        $JSONData = file_get_contents("php://input");
-        $dataObject = json_decode($JSONData);
-        if (property_exists($dataObject, 'nombre_usuario')) {
-
-            $alluser = usuario::where("nombre_usuario", "=", $dataObject->nombre_usuario)->get();
-            if ($alluser) {
-                $r = new Success($alluser);
-                return $r->Send();
-            }
-            return json_encode(['success' => false, 'message' => 'No se encontraron usuarios']);
-
-        }
-
-
-    }
 
     public function login()
     {
@@ -217,17 +200,6 @@ class UserController
         return $encodedToken;
     }*/
 
-    public function getpassword(Request $request)
-    {
-        $email_usuario = $request->ínput('email_usuario');
-        $user = usuario::where('email_usuario', $email_usuario)->first();
-
-        if ($user) {
-            return response()->json(['encryptedPassword' => $user->contrasena_usuario]);
-        } else {
-            return response()->json(['message' => 'Usuario no encontrado'], 404);
-        }
-    }
     function listar()
     {
         $alluser = usuario::all();
