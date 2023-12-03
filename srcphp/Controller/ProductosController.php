@@ -141,9 +141,9 @@ class ProductosController
             $dataObject = json_decode($JSONData);
 
             // Verificar si se proporcionó una nueva imagen en formato base64
-            if (isset($dataObject->foto_perfil_usuario)) {
+            if (isset($dataObject->img_producto)) {
                 // Procesar la nueva imagen
-                $imagenBase64 = $dataObject->foto_perfil_usuario;
+                $imagenBase64 = $dataObject->img_producto;
                 $imagenData = base64_decode($imagenBase64);
 
                 $finfo = finfo_open();
