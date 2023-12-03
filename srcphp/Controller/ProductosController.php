@@ -39,17 +39,11 @@ class ProductosController
             }
 
             // Remove trailing comma and add WHERE clause
-            $sql = rtrim(' '. $sql . ' ') . " WHERE id = :id";
-            $values[':id'] = intval($id);
+            $sql = rtrim($sql, ', ') . " WHERE id = :id";
+            $values[':id'] = $id;
 
             $stmt = $this->conexion->getPDO()->prepare($sql);
-
-            // Bind values to parameters
-            foreach ($values as $key => $value) {
-                $stmt->bindValue($key, $value);
-            }
-
-            $stmt->execute();
+            $stmt->execute($values);
 
             $rowsAffected = $stmt->rowCount();
 
@@ -58,14 +52,15 @@ class ProductosController
             }
 
             header('Content-Type: application/json');
-            echo json_encode(['message' => 'Stock de producto actualizado exitosamente.']);
+            echo json_encode(['message' => 'Producto actualizado exitosamente.']);
             http_response_code(200);
+
+
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
     }
-
 
     public function verproductos()
     {
