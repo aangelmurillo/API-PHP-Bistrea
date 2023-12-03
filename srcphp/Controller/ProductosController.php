@@ -165,7 +165,7 @@ class ProductosController
                 $fileExtension = $extensionMap[$mime_type];
                 $nombreImagen = uniqid() . '.' . $fileExtension;
 
-                $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
+                $rutaImagen = '/var/www/html/apiPhp/public/img/productos/' . $nombreImagen;
 
                 if (file_put_contents($rutaImagen, $imagenData) === false) {
                     throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);

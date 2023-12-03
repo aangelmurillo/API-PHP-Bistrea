@@ -12,30 +12,31 @@ class PedidoController
 {
     public function verpedido()
     {
-        try{
+        try {
             $pedi = Table::query("select * from pedidos");
             $pedi = new Success($pedi);
-            $pedi ->Send();
+            $pedi->Send();
             return $pedi;
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
         }
     }
-    public function hacerpedido(){
-        try{
+    public function hacerpedido()
+    {
+        try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
             $pedid = new pedido();
-            $pedid -> fecha_realizado_pedido = $dataObject -> fecha_realizado_pedido;
-            $pedid -> hora_realizado_pedido = $dataObject -> hora_realizado_pedido;
-            $pedid ->hora_entrega_pedido = $dataObject -> hora_entrega_pedido;
-            $pedid -> estado_pedido = $dataObject -> estado_pedido;
-            $pedid ->info_pedido = $dataObject -> info_pedido;
-            $pedid -> op_pedido = $dataObject -> id_empleado;
-            $pedid -> id_empleado = $dataObject -> id_empleado;
-            $pedid -> nombre_cliente_pedido = $dataObject -> nombre_cliente_pedido;
-            $pedid -> total_pedido = $dataObject -> total_pedido;
+            $pedid->fecha_realizado_pedido = $dataObject->fecha_realizado_pedido;
+            $pedid->hora_realizado_pedido = $dataObject->hora_realizado_pedido;
+            $pedid->hora_entrega_pedido = $dataObject->hora_entrega_pedido;
+            $pedid->estado_pedido = $dataObject->estado_pedido;
+            $pedid->info_pedido = $dataObject->info_pedido;
+            $pedid->op_pedido = $dataObject->id_empleado;
+            $pedid->id_empleado = $dataObject->id_empleado;
+            $pedid->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
+            $pedid->total_pedido = $dataObject->total_pedido;
             $pedid->save();
             $r = new Success($pedid);
             return $r->Send();
@@ -45,9 +46,9 @@ class PedidoController
         }
     }
     public function vercortedecaja()
-{
-    try {
-        $caj = Table::query("SELECT
+    {
+        try {
+            $caj = Table::query("SELECT
             CASE
                 WHEN pedidos.nombre_cliente_pedido IS NOT NULL THEN pedidos.nombre_cliente_pedido
                 ELSE CONCAT(usuarios.nombre_usuario, ' ', usuarios.apellido_p_usuario)
@@ -66,14 +67,14 @@ class PedidoController
         INNER JOIN productos ON detalles_pedido.id_producto = productos.id
         WHERE pedidos.estado_pedido IN ('Cancelado', 'Entregado');");
 
-        $caj = new Success($caj);
-        $caj->Send();
-        return $caj;
-    } catch (\Exception $e) {
-        $s = new Failure(401, $e->getMessage());
-        return $s->Send();
+            $caj = new Success($caj);
+            $caj->Send();
+            return $caj;
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
     }
-}
 
 
 

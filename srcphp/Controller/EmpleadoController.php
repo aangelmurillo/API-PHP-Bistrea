@@ -23,7 +23,7 @@ class EmpleadoController
             echo json_encode($errorResponse);
             http_response_code(500);
         }
-    }    
+    }
 
     public function altaempleado()
     {
@@ -35,9 +35,9 @@ class EmpleadoController
             $usuario->nombre_usuario = $dataObject->nombre_usuario;
             $usuario->apellido_p_usuario = $dataObject->apellido_p_usuario;
             $usuario->apellido_m_usuario = $dataObject->apellido_m_usuario;
-            $usuario->email_usuario = $dataObject->email_usuario;            
+            $usuario->email_usuario = $dataObject->email_usuario;
             $usuario->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
-            
+
             // Poder guardar imagen
             $imagenBase64 = $dataObject->foto_perfil_usuario;
             $imagenData = base64_decode($imagenBase64);
@@ -61,10 +61,10 @@ class EmpleadoController
             $fileExtension = $extensionMap[$mime_type];
             $nombreImagen = uniqid() . '.' . $fileExtension;
 
-            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
+            $rutaImagen = '/var/www/html/apiPhp/public/img/empleado/' . $nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
-            
+
             if (file_put_contents($rutaImagen, $imagenData) === false) {
                 throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
             }
