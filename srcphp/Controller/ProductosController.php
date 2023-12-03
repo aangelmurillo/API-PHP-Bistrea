@@ -107,7 +107,7 @@ class ProductosController
             $fileExtension = $extensionMap[$mime_type];
             $nombreImagen = uniqid() . '.' . $fileExtension;
 
-            $rutaImagen = '/var/www/html/apiPhp/public/img/perfil/' . $nombreImagen;
+            $rutaImagen = '/var/www/html/apiPhp/public/img/productos/' . $nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
 
