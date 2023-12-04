@@ -74,7 +74,7 @@ class EmpleadoController
             $usuario->telefono_usuario = $dataObject->telefono_usuario;
             $usuario->status_usuario = $dataObject->status_usuario;
             $usuario->creado_en_usuario = $dataObject->creado_en_usuario;
-            $usuario->id_rol = 2;
+            $usuario->id_rol = $dataObject->id_rol;
             $usuario->save();
 
             $empleado = new empleado();

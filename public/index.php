@@ -11,6 +11,7 @@ use proyecto\Controller\UserController;
 use proyecto\Controller\EmpleadoController;
 use proyecto\Controller\ProductosController;
 use proyecto\Controller\PedidoController;
+use proyecto\Controller\ResenasController;
 use proyecto\Models\empleado;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
@@ -72,6 +73,9 @@ Router::post("/eliminarproducto", [ProductosController::class, "eliminarproducto
 
 //ruta para ver corte de caja
 Router::get('/vercortedecaja', [PedidoController::class, "vercortedecaja"]);
+
+// ruta para ver resenas
+Router::get('/verresenas', [ResenasController::class, "verresenas"]);
 
 // Ruta para actualizar el stock en producto
 Router::post("/actualizarstock", [ProductosController::class, "actualizarstock"]);
