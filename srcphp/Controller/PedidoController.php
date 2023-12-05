@@ -98,8 +98,43 @@ class PedidoController
             $s = new Failure(0, $e->getMessage());
             return $s->Send();
         }
-
     }
+
+
+    public function liberarcancelarpedidos()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            $query = "CALL (
+                :pedido_id, 
+                :cambio_estado
+            )";
+
+            $params = ['pedido_id' => $dataObject->id, 'cambio_estado' => $dataObject->cambio];
+
+            $resultados = Table::queryParams($query, $params);
+
+            $r = new Success($resultados);
+            return $r->Send();
+        } catch (\Exception $e) {
+            $s = new Failure(0, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+    /*public function cancelarpedidos()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+            $cancelarPedido = new pedido();
+        } catch (\Exception $e) {
+            $s = new Failure(0, $e->getMessage());
+            return $s->Send();
+        }
+    }*/
 
 
 }

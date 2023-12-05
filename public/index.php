@@ -68,6 +68,8 @@ Router::get("/verresumenpedidospendientes", [PedidoController::class, "verresume
 // Ruta para barista pendientes
 Router::get("/verpedidospendientes", [PedidoController::class, "verpedidospendientes"]);
 
+// Ruta para liberar y cancelar pedidos
+Router::post("/liberarcancelarpedidos", [PedidoController::class,"liberarcancelarpedidos"]);
 
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class, "verproductosvendidos"]);
