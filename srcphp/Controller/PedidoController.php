@@ -72,7 +72,7 @@ class PedidoController
     }
 
 
-    public function verpedidospendientes()
+    public function verresumenpedidospendientes()
     {
         try {
             $productos = Table::query("SELECT * FROM barista_resumen_barista");
@@ -87,6 +87,19 @@ class PedidoController
         }
     }
 
+    public function verpedidospendientes()
+    {
+        try {
+            $pedidospendientes = Table::query("SELECT * FROM barista_pendiente_barista");
+            $pedidospendientes = new Success($pedidospendientes);
+            $pedidospendientes->Send();
+            return $pedidospendientes;
+        } catch (\Exception $e) {
+            $s = new Failure(0, $e->getMessage());
+            return $s->Send();
+        }
+
+    }
 
 
 }
