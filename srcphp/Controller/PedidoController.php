@@ -107,7 +107,11 @@ class PedidoController
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            $query = "CALL (
+            if ($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL barista_entregado_cancelado(
                 :pedido_id, 
                 :cambio_estado
             )";
