@@ -62,8 +62,8 @@ Router::get("/mostrar", function () {
 Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
 
 
-// Ruta para ver pedidos pendientes
-Router::get("/verpedidospendientes", [PedidoController::class, "verpedidospendientes"]);
+// Ruta para ver resumen pedidos pendientes
+Router::get("/verresumenpedidospendientes", [PedidoController::class, "verpedidospendientes"]);
 
 
 
