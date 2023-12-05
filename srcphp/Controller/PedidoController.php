@@ -112,7 +112,7 @@ class PedidoController
                 :cambio_estado
             )";
 
-            $params = ['pedido_id' => $dataObject->id, 'cambio_estado' => $dataObject->cambio];
+            $params = ['pedido_id' => $dataObject->pedido_id, 'cambio_estado' => $dataObject->cambio_estado];
 
             $resultados = Table::queryParams($query, $params);
 
