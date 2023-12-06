@@ -48,7 +48,7 @@ Router::get("/", function () {
 });
 
 Router::get("/mostrar", function () {
-    try {
+    try {;
         $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "Angel", "12345");
         $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "bistrea", "bistrea1234");
         echo "Conexión exitosa!";
@@ -83,6 +83,9 @@ Router::get('/vercortedecaja', [PedidoController::class, "vercortedecaja"]);
 
 // ruta para ver resenas
 Router::get('/verresenas', [ResenasController::class, "verresenas"]);
+
+// ruta para hacer resena
+Router::post('/hacerresena', [ResenasController::class, "hacerresena"]);
 
 // Ruta para actualizar el stock en producto
 Router::post("/actualizarstock", [ProductosController::class, "actualizarstock"]);
