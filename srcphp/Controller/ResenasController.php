@@ -35,7 +35,6 @@ class ResenasController
             $JSONData = file_get_contents("php://input");
             $dataobject = json_decode($JSONData);
             $resen = new resena();
-            $resen->id = $dataobject->id;
             $resen->comentario_resena = $dataobject->comentario_resena;
             $resen->id_usuario = $dataobject->id_usuario;
             $resen ->save();
