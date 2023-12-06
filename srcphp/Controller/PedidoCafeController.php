@@ -74,13 +74,19 @@ class PedidoCafeController
     public function ingresarpedido()
     {
         try {
+            $fechaActual = date("Y-m-d H:i:s");
+            $hora_actual =  date("H:i:s");
+
+
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            $pedidos = new pedido();            
+            $pedidos = new pedido();
+            $pedidos->fecha_realizado_pedido = $fechaActual;
+            $pedidos->hora_entrega_pedido = $hora_actual;
             $pedidos->hora_entrega_pedido = $dataObject->hora_entrega_pedido;
             $pedidos->info_pedido = $dataObject->info_pedido;
-            $pedidos->estado_pedido = "En proceso";        
+            $pedidos->estado_pedido = "En proceso";
             $pedidos->op_pedido = $dataObject->op_pedido;
             $pedidos->id_empleado = 1;
             $pedidos->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
