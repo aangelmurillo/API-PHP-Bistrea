@@ -71,5 +71,28 @@ class PedidoCafeController
         }
     }
 
+    public function ingresarpedido()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            $pedidos = new pedido();            
+            $pedidos->hora_entrega_pedido = $dataObject->hora_entrega_pedido;
+            $pedidos->info_pedido = $dataObject->info_pedido;
+            $pedidos->op_pedido = $dataObject->op_pedido;
+            $pedidos->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
+            $pedidos->total_pedido = $dataObject->total_pedido;
+
+            $pedidos->save();
+
+            $r = new Success($pedidos);
+            return $r->Send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
 }
 ?>

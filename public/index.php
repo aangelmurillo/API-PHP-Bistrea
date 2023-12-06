@@ -40,6 +40,8 @@ Router::get("/detallespepidotipocafe", [PedidoCafeController::class, "detallespe
 // Ver los detallespedidope
 Router::get("/detallespedidope", [PedidoCafeController::class, "detallespedidope"]);
 
+// Ver los ingresar pedido
+Router::post("/ingresarpedido", [PedidoCafeController::class, "ingresarpedido"]);
 
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
