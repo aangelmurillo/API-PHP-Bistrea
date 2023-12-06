@@ -74,7 +74,7 @@ class PedidoCafeController
     public function ingresarpedido()
     {
         try {
-            $fechaActual = date("Y-m-d H:i:s");
+            $fechaActual = date("Y-m-d");
             $hora_actual =  date("H:i:s");
 
 
@@ -83,7 +83,7 @@ class PedidoCafeController
 
             $pedidos = new pedido();
             $pedidos->fecha_realizado_pedido = $fechaActual;
-            $pedidos->hora_entrega_pedido = $hora_actual;
+            $pedidos->hora_realizado_pedido = $hora_actual;
             $pedidos->hora_entrega_pedido = $dataObject->hora_entrega_pedido;
             $pedidos->info_pedido = $dataObject->info_pedido;
             $pedidos->estado_pedido = "En proceso";
