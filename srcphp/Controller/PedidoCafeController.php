@@ -80,6 +80,7 @@ class PedidoCafeController
             $pedidos = new pedido();            
             $pedidos->hora_entrega_pedido = $dataObject->hora_entrega_pedido;
             $pedidos->info_pedido = $dataObject->info_pedido;
+            $pedidos->estado_pedido = "En proceso";        
             $pedidos->op_pedido = $dataObject->op_pedido;
             $pedidos->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
             $pedidos->total_pedido = $dataObject->total_pedido;
