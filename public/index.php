@@ -20,6 +20,8 @@ use proyecto\Models\producto;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
+date_default_timezone_set('America/Monterrey');
+
 Router::headers();
 Router::getBearerToken();
 

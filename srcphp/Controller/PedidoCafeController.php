@@ -11,7 +11,7 @@ use proyecto\Response\Failure;
 use proyecto\Models\Table;
 
 class PedidoCafeController
-{
+{    
     public function verpedidos()
     {
         try {
