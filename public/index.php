@@ -30,6 +30,9 @@ Router::get("/", function () {
 });
 
 
+// Cambiar en proceso los pedidos a en solicitud
+Router::post("/comprarpedido", [PedidoCafeController::class, "comprarpedido"]);
+
 // Ver los pedidos totales desde cafe
 Router::get("/verpedidostotales", [PedidoCafeController::class, "verpedidos"]);
 
@@ -167,7 +170,7 @@ Router::post("/hacerpedido", [PedidoController::class, "hacerpedido"]);
 Router::get('/usuario/buscar/$id', function ($id) {
 
     $user = User::find($id);
-    if (!$user) {
+    if(!$user) {
         $r = new Failure(404, "no se encontro el usuario");
         return $r->Send();
     }
