@@ -140,7 +140,7 @@ class PedidoCafeController {
                 :cambio_estado
             )";
 
-            $params = ['pedido_id' => $dataObject->pedido_id, 'cambio_estado' => $dataObject->cambio_estado];
+            $params = ['pedido_id' => $dataObject->pedido_id, 'cambio_estado' => $dataObject->estado_pedido];
 
             $resultado = Table::queryParams($query, $params);
 
