@@ -48,6 +48,8 @@ Router::get("/detallespedidope", [PedidoCafeController::class, "detallespedidope
 // Ver los ingresar pedido
 Router::post("/ingresarpedido", [PedidoCafeController::class, "ingresarpedido"]);
 
+// actualizar datos del usuario
+Router::post("/actualizardatosusuario", [UserController::class, "actualizardatosusuario"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
