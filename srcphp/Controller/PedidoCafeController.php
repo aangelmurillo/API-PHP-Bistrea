@@ -82,6 +82,7 @@ class PedidoCafeController
             $pedidos->info_pedido = $dataObject->info_pedido;
             $pedidos->estado_pedido = "En proceso";        
             $pedidos->op_pedido = $dataObject->op_pedido;
+            $pedidos->id_empleado = 1;
             $pedidos->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
             $pedidos->total_pedido = $dataObject->total_pedido;
 
