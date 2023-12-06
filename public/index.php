@@ -1,6 +1,7 @@
 <?php
 namespace proyecto;
 
+use proyecto\Controller\PedidoCafeController;
 use proyecto\Controller\UsuarioController;
 
 require("../vendor/autoload.php");
@@ -25,6 +26,20 @@ Router::getBearerToken();
 Router::get("/", function () {
     echo "Bienvenido";
 });
+
+
+// Ver los pedidos totales desde cafe
+Router::get("/verpedidostotales", [PedidoCafeController::class, "verpedidos"]);
+
+// Ver los detalles de pedido
+Router::get("/verdetallespedido", [PedidoCafeController::class, "verdetallespedido"]);
+
+// Ver los detalles de tipo cafe
+Router::get("/detallespepidotipocafe", [PedidoCafeController::class, "detallespepidotipocafe"]);
+
+// Ver los detallespedidope
+Router::get("/detallespedidope", [PedidoCafeController::class, "detallespedidope"]);
+
 
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
@@ -69,7 +84,7 @@ Router::get("/verresumenpedidospendientes", [PedidoController::class, "verresume
 Router::get("/verpedidospendientes", [PedidoController::class, "verpedidospendientes"]);
 
 // Ruta para liberar y cancelar pedidos
-Router::post("/liberarcancelarpedidos", [PedidoController::class,"liberarcancelarpedidos"]);
+Router::post("/liberarcancelarpedidos", [PedidoController::class, "liberarcancelarpedidos"]);
 
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class, "verproductosvendidos"]);
