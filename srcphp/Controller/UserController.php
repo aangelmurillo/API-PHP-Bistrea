@@ -226,7 +226,33 @@ class UserController {
             $resultado = Table::queryParams($query, $params);
 
             $r = new Success($resultado);
-            return $r->send();            
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+    public function cambiarcontrasena() {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            if($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL CambiarContrasena(
+                :correoUsuario,
+                :nuevaContrasena
+            )";
+
+            $params = ['correoUsuario' => $dataObject->correoUsuario, 'nuevaContrasena' => password_hash($dataObject->nuevaContrasena, PASSWORD_DEFAULT)];
+
+            $resultado = Table::queryParams($query, $params);
+
+            $r = new Success($resultado);
+            return $r->send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
             return $s->Send();
