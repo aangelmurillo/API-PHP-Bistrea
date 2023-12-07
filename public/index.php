@@ -51,6 +51,9 @@ Router::post("/ingresarpedido", [PedidoCafeController::class, "ingresarpedido"])
 // actualizar datos del usuario
 Router::post("/actualizardatosusuario", [UserController::class, "actualizardatosusuario"]);
 
+// Cambio de contraseña
+Router::post("/cambiarcontrasena", [UserController::class,"cambiarcontrasena"]);
+
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
 
