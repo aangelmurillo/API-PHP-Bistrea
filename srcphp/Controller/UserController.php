@@ -217,11 +217,10 @@ class UserController {
                 :nombre,
                 :apellido_p,
                 :apellido_m,
-                :email,
                 :telefono
             )";
 
-            $params = ['idusuario' => $dataObject->idusuario, 'nombre' => $dataObject->nombre, 'apellido_p' => $dataObject->apellido_p, 'apellido_m' => $dataObject->apellido_m, 'email' => $dataObject->email, 'telefono' => $dataObject->telefono];
+            $params = ['idusuario' => $dataObject->idusuario, 'nombre' => $dataObject->nombre, 'apellido_p' => $dataObject->apellido_p, 'apellido_m' => $dataObject->apellido_m, 'telefono' => $dataObject->telefono];
 
             $resultado = Table::queryParams($query, $params);
 
