@@ -93,9 +93,16 @@ class PedidoCafeController {
             $pedidos_clientes->id_usuario = $dataObject->id_usuario; 
             $pedidos_clientes->save();
 
+            $detalles_pedido = new detalle_pedido();
+            $detalles_pedido->cantidad_producto = $dataObject->cantidad_producto;
+            $detalles_pedido->id_producto = $dataObject->id_producto;
+            $detalles_pedido->id_pedido = $pedidos->id;
+            $detalles_pedido->save();
+
             $respone = array(
                 'pedido' => $pedidos,
-                'pedidos_clientes' => $pedidos_clientes
+                'pedidos_clientes' => $pedidos_clientes,
+                'detalles_pedido' => $detalles_pedido
             );
 
             $r = new Success($respone);            
