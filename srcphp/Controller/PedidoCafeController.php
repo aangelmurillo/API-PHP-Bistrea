@@ -70,10 +70,16 @@ class PedidoCafeController {
 
     public function ingresarpedidocafe() {
         try {
+            $fechaActual = date("Y-m-d");
+            $hora_actual = date("H:i:s");
+
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
             $pedidos = new pedido();
+            
+            $pedidos->fecha_realizado_pedido = $fechaActual;
+            $pedidos->hora_realizado_pedido = $hora_actual;
             $pedidos->info_pedido = $dataObject->info_pedido;
             $pedidos->op_pedido = $dataObject->op_pedido;
 
