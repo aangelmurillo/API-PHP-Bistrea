@@ -5,6 +5,7 @@ namespace proyecto\Controller;
 use PDO;
 use proyecto\Models\pedido;
 use proyecto\Models\detalle_pedido;
+use proyecto\Models\pedido_cliente;
 use proyecto\Models\detalle_pedido_pe;
 use proyecto\Models\detalle_pedido_tipo_cafe;
 use proyecto\Models\producto;
@@ -85,8 +86,11 @@ class PedidoCafeController {
             $pedidos->estado_pedido = "En proceso";
             $pedidos->id_empleado = 1;
             $pedidos->nombre_cliente_pedido = $dataObject->nombre_cliente_pedido;
-
             $pedidos->save();
+
+            $pedidos_clientes = new pedido_cliente();
+            $pedidos_clientes->id_pedido = $pedidos->id;
+            $pedidos_clientes->id_usuario = $dataObject->id_usuario; 
 
             $r = new Success($pedidos);
             return $r->Send();
