@@ -52,7 +52,10 @@ Router::post("/ingresarpedido", [PedidoCafeController::class, "ingresarpedido"])
 Router::post("/actualizardatosusuario", [UserController::class, "actualizardatosusuario"]);
 
 // Cambio de contraseña
-Router::post("/cambiarcontrasena", [UserController::class,"cambiarcontrasena"]);
+Router::post("/cambiarcontrasena", [UserController::class, "cambiarcontrasena"]);
+
+// obtener historial pedidos
+Router::post("/obtenerhistorialpedidos", [UserController::class, "obtenerhistorialpedidos"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*

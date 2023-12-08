@@ -233,6 +233,32 @@ class UserController {
         }
     }
 
+    public function obtenerhistorialpedidos() {
+        try {
+            $JSONData = file_get_contents('php://input');
+            $dataObject = json_decode($JSONData);
+
+            if($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL editar_usuario(
+                :idUsuario
+            )";
+
+            $params = ['idUsuario' => $dataObject->idUsuario];
+
+            $resultado = Table::queryParams($query, $params);
+
+            $r = new Success($resultado);
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+
     public function cambiarcontrasena() {
         try {
             $JSONData = file_get_contents("php://input");
