@@ -242,7 +242,7 @@ class UserController {
                 throw new \Exception("Error decoding JSON data");
             }
 
-            $query = "CALL editar_usuario(
+            $query = "CALL ObtenerHistorialPedidos(
                 :idUsuario
             )";
 
