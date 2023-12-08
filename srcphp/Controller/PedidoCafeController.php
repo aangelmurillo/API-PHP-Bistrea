@@ -83,6 +83,7 @@ class PedidoCafeController {
             $pedidos->info_pedido = $dataObject->info_pedido;
             $pedidos->op_pedido = $dataObject->op_pedido;
             $pedidos->estado_pedido = "En proceso";
+            $pedidos->id_empleado = 1;
 
             $pedidos->save();
 
