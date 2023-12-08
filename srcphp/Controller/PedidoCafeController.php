@@ -97,12 +97,19 @@ class PedidoCafeController {
             $detalles_pedido->cantidad_producto = $dataObject->cantidad_producto;
             $detalles_pedido->id_producto = $dataObject->id_producto;
             $detalles_pedido->id_pedido = $pedidos->id;
+            $detalles_pedido->tipo_pago_pedido = "Efectivo";
             $detalles_pedido->save();
+
+            $detalles_pedido_pe = new detalle_pedido_pe();
+            $detalles_pedido_pe->id_detalle_pedido = $dataObject->id_detalle_pedido;
+            $detalles_pedido_pe->id_producto_extra = $dataObject->id_producto_extra;
+            $detalles_pedido_pe->save();
 
             $respone = array(
                 'pedido' => $pedidos,
                 'pedidos_clientes' => $pedidos_clientes,
-                'detalles_pedido' => $detalles_pedido
+                'detalles_pedido' => $detalles_pedido,
+                'detalles_pedido_pe' => $detalles_pedido_pe
             );
 
             $r = new Success($respone);            
