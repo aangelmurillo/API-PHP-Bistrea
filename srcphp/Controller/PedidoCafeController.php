@@ -77,11 +77,12 @@ class PedidoCafeController {
             $dataObject = json_decode($JSONData);
 
             $pedidos = new pedido();
-            
+
             $pedidos->fecha_realizado_pedido = $fechaActual;
             $pedidos->hora_realizado_pedido = $hora_actual;
             $pedidos->info_pedido = $dataObject->info_pedido;
             $pedidos->op_pedido = $dataObject->op_pedido;
+            $pedidos->estado_pedido = "En proceso";
 
             $pedidos->save();
 
