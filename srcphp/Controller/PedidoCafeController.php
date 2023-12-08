@@ -101,7 +101,7 @@ class PedidoCafeController {
             $detalles_pedido->save();
 
             $detalles_pedido_pe = new detalle_pedido_pe();
-            $detalles_pedido_pe->id_detalle_pedido = $dataObject->id_detalle_pedido;
+            $detalles_pedido_pe->id_detalle_pedido = $detalles_pedido->id;
             $detalles_pedido_pe->id_producto_extra = $dataObject->id_producto_extra;
             $detalles_pedido_pe->save();
 
