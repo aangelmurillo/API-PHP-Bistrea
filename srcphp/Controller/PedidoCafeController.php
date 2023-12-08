@@ -91,8 +91,14 @@ class PedidoCafeController {
             $pedidos_clientes = new pedido_cliente();
             $pedidos_clientes->id_pedido = $pedidos->id;
             $pedidos_clientes->id_usuario = $dataObject->id_usuario; 
+            $pedidos_clientes->save();
 
-            $r = new Success($pedidos);
+            $respone = array(
+                'pedido' => $pedidos,
+                'pedidos_clientes' => $pedidos_clientes
+            );
+
+            $r = new Success($respone);            
             return $r->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
