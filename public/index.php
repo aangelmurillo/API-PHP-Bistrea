@@ -57,6 +57,9 @@ Router::post("/cambiarcontrasena", [UserController::class, "cambiarcontrasena"])
 // obtener historial pedidos
 Router::post("/obtenerhistorialpedidos", [UserController::class, "obtenerhistorialpedidos"]);
 
+// Ingresar pedido cafe
+Router::post("/ingresarpedidocafe", [PedidoCafeController::class, "ingresarpedidocafe"]);
+
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
 

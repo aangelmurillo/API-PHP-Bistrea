@@ -68,6 +68,25 @@ class PedidoCafeController {
         }
     }
 
+    public function ingresarpedidocafe() {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            $pedidos = new pedido();
+            $pedidos->info_pedido = $dataObject->info_pedido;
+            $pedidos->op_pedido = $dataObject->op_pedido;
+
+            $pedidos->save();
+
+            $r = new Success($pedidos);
+            return $r->Send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
     public function ingresarpedido() {
         try {
             $fechaActual = date("Y-m-d");
@@ -131,7 +150,7 @@ class PedidoCafeController {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            if ($dataObject === null) {
+            if($dataObject === null) {
                 throw new \Exception("Error decoding JSON data");
             }
 
