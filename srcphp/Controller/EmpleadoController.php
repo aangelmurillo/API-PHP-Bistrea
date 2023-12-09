@@ -72,7 +72,7 @@ class EmpleadoController
             $usuario->foto_perfil_usuario = $rutaImagen;
 
             $usuario->telefono_usuario = $dataObject->telefono_usuario;
-            $usuario->status_usuario = $dataObject->status_usuario;
+            $usuario->status_usuario = 0;
             $usuario->creado_en_usuario = $dataObject->creado_en_usuario;
             $usuario->id_rol = $dataObject->id_rol;
             $usuario->save();

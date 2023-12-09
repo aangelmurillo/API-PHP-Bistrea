@@ -57,7 +57,7 @@ class UserController {
             $user->foto_perfil_usuario = $rutaImagen;
 
             $user->telefono_usuario = $dataObject->telefono_usuario;
-            $user->status_usuario = 1;
+            $user->status_usuario = 0;
             $user->creado_en_usuario = null;
             $user->id_rol = 3;
             $user->save();
