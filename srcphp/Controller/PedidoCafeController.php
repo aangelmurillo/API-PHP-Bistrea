@@ -14,6 +14,21 @@ use proyecto\Response\Failure;
 use proyecto\Models\Table;
 
 class PedidoCafeController {
+
+    public function vercafes() {
+        try {
+            $productos = Table::query("SELECT * FROM productos WHERE categoria = 'Cafes'");
+            $productos = new Success($productos);
+
+            $productos->Send();
+
+            return $productos;
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
     public function verpedidos() {
         try {
             $pedidos = Table::query("SELECT * FROM pedidos");
@@ -90,7 +105,7 @@ class PedidoCafeController {
 
             $pedidos_clientes = new pedido_cliente();
             $pedidos_clientes->id_pedido = $pedidos->id;
-            $pedidos_clientes->id_usuario = $dataObject->id_usuario; 
+            $pedidos_clientes->id_usuario = $dataObject->id_usuario;
             $pedidos_clientes->save();
 
             $detalles_pedido = new detalle_pedido();
@@ -112,7 +127,7 @@ class PedidoCafeController {
                 'detalles_pedido_pe' => $detalles_pedido_pe
             );
 
-            $r = new Success($respone);            
+            $r = new Success($respone);
             return $r->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
