@@ -29,6 +29,20 @@ class PedidoCafeController {
         }
     }
 
+    public function verpostres() {
+        try {
+            $productos = Table::query("SELECT * FROM productos WHERE categoria = 'Postres'");
+            $productos = new Success($productos);
+
+            $productos->Send();
+
+            return $productos;
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
     public function verpedidos() {
         try {
             $pedidos = Table::query("SELECT * FROM pedidos");

@@ -63,6 +63,9 @@ Router::post("/ingresarpedidocafe", [PedidoCafeController::class, "ingresarpedid
 // Ver los productos
 Router::get("/vercafes", [PedidoCafeController::class,"vercafes"]);
 
+// Ver los postres
+Router::get("/verpostres", [PedidoCafeController::class,"verpostres"]);
+
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
 
