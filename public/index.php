@@ -1,6 +1,7 @@
 <?php
 namespace proyecto;
 
+use proyecto\Controller\PedidoCafeController;
 use proyecto\Controller\UsuarioController;
 
 require("../vendor/autoload.php");
@@ -19,6 +20,8 @@ use proyecto\Models\producto;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
+date_default_timezone_set('America/Monterrey');
+
 Router::headers();
 Router::getBearerToken();
 
@@ -26,6 +29,39 @@ Router::get("/", function () {
     echo "Bienvenido";
 });
 
+
+// Cambiar en proceso los pedidos a en solicitud
+Router::post("/comprarpedido", [PedidoCafeController::class, "comprarpedido"]);
+
+// Ver los pedidos totales desde cafe
+Router::get("/verpedidostotales", [PedidoCafeController::class, "verpedidos"]);
+
+// Ver los detalles de pedido
+Router::get("/verdetallespedido", [PedidoCafeController::class, "verdetallespedido"]);
+
+// Ver los detalles de tipo cafe
+Router::get("/detallespepidotipocafe", [PedidoCafeController::class, "detallespepidotipocafe"]);
+
+// Ver los detallespedidope
+Router::get("/detallespedidope", [PedidoCafeController::class, "detallespedidope"]);
+
+// Ver los ingresar pedido
+Router::post("/ingresarpedido", [PedidoCafeController::class, "ingresarpedido"]);
+
+// actualizar datos del usuario
+Router::post("/actualizardatosusuario", [UserController::class, "actualizardatosusuario"]);
+
+// Cambio de contraseña
+Router::post("/cambiarcontrasena", [UserController::class, "cambiarcontrasena"]);
+
+// obtener historial pedidos
+Router::post("/obtenerhistorialpedidos", [UserController::class, "obtenerhistorialpedidos"]);
+
+// Ingresar pedido cafe
+Router::post("/ingresarpedidocafe", [PedidoCafeController::class, "ingresarpedidocafe"]);
+
+// Ver los productos
+Router::get("/vercafes", [PedidoCafeController::class,"vercafes"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
@@ -69,7 +105,7 @@ Router::get("/verresumenpedidospendientes", [PedidoController::class, "verresume
 Router::get("/verpedidospendientes", [PedidoController::class, "verpedidospendientes"]);
 
 // Ruta para liberar y cancelar pedidos
-Router::post("/liberarcancelarpedidos", [PedidoController::class,"liberarcancelarpedidos"]);
+Router::post("/liberarcancelarpedidos", [PedidoController::class, "liberarcancelarpedidos"]);
 
 //ruta para ver productos vendidos
 Router::get('/verproductosvendidos', [ProductosController::class, "verproductosvendidos"]);
@@ -148,7 +184,7 @@ Router::post("/hacerpedido", [PedidoController::class, "hacerpedido"]);
 Router::get('/usuario/buscar/$id', function ($id) {
 
     $user = User::find($id);
-    if (!$user) {
+    if(!$user) {
         $r = new Failure(404, "no se encontro el usuario");
         return $r->Send();
     }

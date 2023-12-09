@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 namespace proyecto\Controller;
 
 use proyecto\Response\Failure;
@@ -14,11 +11,8 @@ use proyecto\Models\Table;
 use proyecto\Models\Models;
 use PDO;
 
-class UserController
-{
-
-    function registrousuario()
-    {
+class UserController {
+    function registrousuario() {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
@@ -45,19 +39,19 @@ class UserController
                 'image/svg+xml' => 'svg',
             ];
 
-            if (!array_key_exists($mime_type, $extensionMap)) {
+            if(!array_key_exists($mime_type, $extensionMap)) {
                 throw new \Exception('Formato de imagen no permitido');
             }
 
             $fileExtension = $extensionMap[$mime_type];
-            $nombreImagen = uniqid() . '.' . $fileExtension;
+            $nombreImagen = uniqid().'.'.$fileExtension;
 
-            $rutaImagen = '/var/www/html/apiPhp/public/img/usuario/' . $nombreImagen;
+            $rutaImagen = '/var/www/html/apiPhp/public/img/usuario/'.$nombreImagen;
 
             file_put_contents($rutaImagen, $imagenData);
-            
-            if (file_put_contents($rutaImagen, $imagenData) === false) {
-                throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
+
+            if(file_put_contents($rutaImagen, $imagenData) === false) {
+                throw new \Exception('Error al guardar la imagen: '.error_get_last()['message']);
             }
 
             $user->foto_perfil_usuario = $rutaImagen;
@@ -77,12 +71,11 @@ class UserController
 
     }
 
-    public static function auth()
-    {
+    public static function auth() {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-            if (!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
+            if(!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
                 throw new \Exception("Faltan datos");
             }
             return Usuario::auth($dataObject->email_usuario, $dataObject->contrasena_usuario);
@@ -93,9 +86,8 @@ class UserController
         }
 
     }
-    
-    public function verificar()
-    {
+
+    public function verificar() {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
@@ -106,7 +98,7 @@ class UserController
             $resultado = $this->verificarUsuario($email_usuario, $contrasena_usuario);
 
 
-            if ($resultado) {
+            if($resultado) {
 
                 $response = array(
                     "message" => "Inicio de sesión exitoso",
@@ -121,18 +113,17 @@ class UserController
             }
         } catch (\Exception $e) {
 
-            $r = new Failure(500, "Error en el servidor: " . $e->getMessage());
+            $r = new Failure(500, "Error en el servidor: ".$e->getMessage());
             return $r->Send();
         }
     }
 
-    function verificarUsuario($email_usuario, $contrasena_usuario)
-    {
+    function verificarUsuario($email_usuario, $contrasena_usuario) {
         $resultados = Table::queryParams("SELECT * FROM usuarios WHERE email_usuario = :email_usuario", ['email_usuario' => $email_usuario]);
 
-        if (count($resultados) > 0) {
+        if(count($resultados) > 0) {
             $usuario = $resultados[0];
-            if ($usuario->contrasena_usuario === $contrasena_usuario) {
+            if($usuario->contrasena_usuario === $contrasena_usuario) {
                 return $resultados;
             }
         }
@@ -141,8 +132,7 @@ class UserController
     }
 
 
-    public function login()
-    {
+    public function login() {
         $JSONData = file_get_contents("php://input");
         $dataObject = json_decode($JSONData);
 
@@ -156,17 +146,16 @@ class UserController
         echo json_encode($response);
     }
 
-    private function verifyCredentials($email_usuario, $contrasena_usuario)
-    {
+    private function verifyCredentials($email_usuario, $contrasena_usuario) {
         try {
             // Buscar un usuario por correo electrónico
             $user = Usuario::where('email_usuario', '=', $email_usuario);
 
-            if ($user) {
+            if($user) {
                 // Verificar la contraseña almacenada en la base de datos
                 $storedPassword = $user[0]->contrasena_usuario;
 
-                if (password_verify($contrasena_usuario, $storedPassword)) {
+                if(password_verify($contrasena_usuario, $storedPassword)) {
                     $token = auth::generateToken([$user[0]->id]); // Asegúrate de que sea la clave primaria correcta
                     return ['success' => true, 'token' => $token];
                 } else {
@@ -176,14 +165,13 @@ class UserController
                 return ['success' => false, 'message' => 'Credenciales incorrectas'];
             }
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Error en el servidor: ' . $e->getMessage()];
+            return ['success' => false, 'message' => 'Error en el servidor: '.$e->getMessage()];
         }
     }
-    
-    public function all()
-    {
-        $user=usuario::where("id", "=", '$id' );
-        $r=new Success($user);
+
+    public function all() {
+        $user = usuario::where("id", "=", '$id');
+        $r = new Success($user);
         return $r->Send();
     }
 
@@ -200,23 +188,102 @@ class UserController
         return $encodedToken;
     }*/
 
-    function listar()
-    {
+    function listar() {
         $alluser = usuario::all();
         $r = new Success($alluser);
         return $r->Send();
     }
 
 
-    function eliminarAllUsers()
-    {
+    function eliminarAllUsers() {
         usuario::deleteAll();
     }
 
-    function eliminarUsersbyId($id)
-    {
+    function eliminarUsersbyId($id) {
         usuario::delete($id);
     }
+
+    public function actualizardatosusuario() {
+        try {
+            $JSONData = file_get_contents('php://input');
+            $dataObject = json_decode($JSONData);
+
+            if($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL editar_usuario(
+                :idusuario,
+                :nombre,
+                :apellido_p,
+                :apellido_m,
+                :telefono
+            )";
+
+            $params = ['idusuario' => $dataObject->idusuario, 'nombre' => $dataObject->nombre, 'apellido_p' => $dataObject->apellido_p, 'apellido_m' => $dataObject->apellido_m, 'telefono' => $dataObject->telefono];
+
+            $resultado = Table::queryParams($query, $params);
+
+            $r = new Success($resultado);
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+    public function obtenerhistorialpedidos() {
+        try {
+            $JSONData = file_get_contents('php://input');
+            $dataObject = json_decode($JSONData);
+
+            if($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL ObtenerHistorialPedidos(
+                :idUsuario
+            )";
+
+            $params = ['idUsuario' => $dataObject->idUsuario];
+
+            $resultado = Table::queryParams($query, $params);
+
+            $r = new Success($resultado);
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+
+    public function cambiarcontrasena() {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            if($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $query = "CALL CambiarContrasena(
+                :correoUsuario,
+                :nuevaContrasena
+            )";
+
+            $params = ['correoUsuario' => $dataObject->correoUsuario, 'nuevaContrasena' => password_hash($dataObject->nuevaContrasena, PASSWORD_DEFAULT)];
+
+            $resultado = Table::queryParams($query, $params);
+
+            $r = new Success($resultado);
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
 }
 
 /*
@@ -245,6 +312,5 @@ class UserController
             return $r->Send();
         }
 
-    }
-        
-        */
+    }*/
+?>
