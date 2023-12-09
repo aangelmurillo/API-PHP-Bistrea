@@ -128,6 +128,13 @@ class PedidoCafeController {
             );
 
             $r = new Success($respone);
+            $r->Send();
+            sleep(10);
+            $pedidos->estado_pedido = "En proceso";
+            $pedidos->save();
+            $response['status'] = 'procesing';
+            $r = new Success($response);
+            $r->Send();
             return $r->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
