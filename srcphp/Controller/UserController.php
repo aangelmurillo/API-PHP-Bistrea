@@ -21,40 +21,7 @@ class UserController {
             $user->apellido_p_usuario = $dataObject->apellido_p_usuario;
             $user->apellido_m_usuario = $dataObject->apellido_m_usuario;
             $user->email_usuario = $dataObject->email_usuario;
-            $user->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
-
-            // Poder guardar imagen
-            $imagenBase64 = $dataObject->foto_perfil_usuario;
-            $imagenData = base64_decode($imagenBase64);
-
-            $finfo = finfo_open();
-            $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
-            finfo_close($finfo);
-
-            // Validar la extensión permitida
-            $extensionMap = [
-                'image/jpeg' => 'jpg',
-                'image/jpg' => 'jpg',
-                'image/png' => 'png',
-                'image/svg+xml' => 'svg',
-            ];
-
-            if(!array_key_exists($mime_type, $extensionMap)) {
-                throw new \Exception('Formato de imagen no permitido');
-            }
-
-            $fileExtension = $extensionMap[$mime_type];
-            $nombreImagen = uniqid().'.'.$fileExtension;
-
-            $rutaImagen = '/var/www/html/apiPhp/public/img/usuario/'.$nombreImagen;
-
-            file_put_contents($rutaImagen, $imagenData);
-
-            if(file_put_contents($rutaImagen, $imagenData) === false) {
-                throw new \Exception('Error al guardar la imagen: '.error_get_last()['message']);
-            }
-
-            $user->foto_perfil_usuario = $rutaImagen;
+            $user->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);            
 
             $user->telefono_usuario = $dataObject->telefono_usuario;
             $user->status_usuario = 0;
