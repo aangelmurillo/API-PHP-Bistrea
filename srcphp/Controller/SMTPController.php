@@ -17,17 +17,20 @@ class SMTPController {
         $mail = new PHPMailer(true);
 
         try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+        
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
-            $mail->Password = 'qogkocrkrtszknbl';
+            $mail->Password = 'qogk ocrk rtsz knbl';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             $mail->setFrom('bistreacoffeecakes@gmail.com');
-            $mail->addAddress('aangelmurv@gmail.com');
+            $mail->addAddress($dataObject->email);
 
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
