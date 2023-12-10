@@ -130,6 +130,7 @@ class PedidoCafeController {
             $detalles_pedido->save();
 
             $detalles_pedido_pe = new detalle_pedido_pe();
+            $detalles_pedido_pe->precio_pe = $dataObject->precio_pe;
             $detalles_pedido_pe->id_detalle_pedido = $detalles_pedido->id;
             $detalles_pedido_pe->id_producto_extra = $dataObject->id_producto_extra;
             $detalles_pedido_pe->save();
@@ -142,13 +143,8 @@ class PedidoCafeController {
             );
 
             $r = new Success($respone);
-            $r->Send();
-            sleep(10);
-            $pedidos->estado_pedido = "En proceso";
-            $pedidos->save();
-            $response['status'] = 'procesing';
-            $r = new Success($response);
-            $r->Send();
+            
+            $r->Send();            
             return $r->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());

@@ -1,7 +1,9 @@
 <?php
 namespace proyecto;
 
+use proyecto\Controller\CarritoController;
 use proyecto\Controller\PedidoCafeController;
+use proyecto\Controller\SMTPController;
 use proyecto\Controller\UsuarioController;
 
 require("../vendor/autoload.php");
@@ -21,15 +23,25 @@ use proyecto\Models\producto;
 use proyecto\Models\producto_extra;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
+use Dotenv\Dotenv;
 
 date_default_timezone_set('America/Monterrey');
 
 Router::headers();
 Router::getBearerToken();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
 Router::get("/", function () {
     echo "Bienvenido";
 });
+
+Router::get("/carrito", [CarritoController::class, "carrito"]);
+
+// Router para enviar correo
+// Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
 
 
 // Cambiar en proceso los pedidos a en solicitud
@@ -204,8 +216,9 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 });
 
+// Ver pedidos en proceso
+Router::post('/mostrarcarrito', [CarritoController::class, 'mostrarcarrito']);
+
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
-
-
 ?>
