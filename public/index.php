@@ -38,7 +38,7 @@ Router::get("/", function () {
 });
 
 // Router para enviar correo
-Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
+// Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
 
 
 // Cambiar en proceso los pedidos a en solicitud
