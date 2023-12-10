@@ -13,9 +13,11 @@ use proyecto\Response\Success;
 use proyecto\Response\Failure;
 use proyecto\Models\Table;
 
-class PedidoCafeController {
+class PedidoCafeController
+{
 
-    public function vercafes() {
+    public function vercafes()
+    {
         try {
             $productos = Table::query("SELECT * FROM productos WHERE categoria = 'Cafes'");
             $productos = new Success($productos);
@@ -29,7 +31,8 @@ class PedidoCafeController {
         }
     }
 
-    public function verpedidos() {
+    public function verpedidos()
+    {
         try {
             $pedidos = Table::query("SELECT * FROM pedidos");
             $pedidos = new Success($pedidos);
@@ -43,7 +46,8 @@ class PedidoCafeController {
         }
     }
 
-    public function verdetallespedido() {
+    public function verdetallespedido()
+    {
         try {
             $detallesPedido = Table::query("SELECT * FROM detalles_pedido");
             $detallesPedido = new Success($detallesPedido);
@@ -57,7 +61,8 @@ class PedidoCafeController {
         }
     }
 
-    public function detallespepidotipocafe() {
+    public function detallespepidotipocafe()
+    {
         try {
             $detallepedido = Table::query("SELECT * FROM detalles_pedido_tipo_cafe");
             $detallepedido = new Success($detallepedido);
@@ -71,7 +76,8 @@ class PedidoCafeController {
         }
     }
 
-    public function detallespedidope() {
+    public function detallespedidope()
+    {
         try {
             $detallepedidope = Table::query("SELECT * FROM detalles_pedido_pe");
             $detallepedidope = new Success($detallepedidope);
@@ -84,7 +90,8 @@ class PedidoCafeController {
         }
     }
 
-    public function ingresarpedidocafe() {
+    public function ingresarpedidocafe()
+    {
         try {
             $fechaActual = date("Y-m-d");
             $hora_actual = date("H:i:s");
@@ -129,8 +136,8 @@ class PedidoCafeController {
             );
 
             $r = new Success($respone);
-            
-            $r->Send();            
+
+            $r->Send();
             return $r->Send();
         } catch (\Exception $e) {
             $s = new Failure(401, $e->getMessage());
@@ -138,7 +145,8 @@ class PedidoCafeController {
         }
     }
 
-    public function ingresarpedido() {
+    public function ingresarpedido()
+    {
         try {
             $fechaActual = date("Y-m-d");
             $hora_actual = date("H:i:s");
@@ -196,12 +204,13 @@ class PedidoCafeController {
         }
     }
 
-    public function comprarpedido() {
+    public function comprarpedido()
+    {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            if($dataObject === null) {
+            if ($dataObject === null) {
                 throw new \Exception("Error decoding JSON data");
             }
 
@@ -222,5 +231,30 @@ class PedidoCafeController {
         }
     }
 
+    public function borrarpedidocafe()
+    {
+        try {
+            $JSONData = file_get_contents("php://input");
+            $dataObject = json_decode($JSONData);
+
+            if ($dataObject === null) {
+                throw new \Exception("Error decoding JSON data");
+            }
+
+            $borrarPedido = "CALL borrar_pedido_cafe (
+                :pedido_borrar
+            );";
+
+            $parametros = ['pedido_borrar' => $dataObject->pedido_borrar];
+
+            $resultados = Table::queryParams($borrarPedido, $parametros);
+
+            $r = new Success($resultados);
+            return $r->send();
+        } catch (\Exception $e) {
+            $s = new Failure(401, $e->getMessage());
+            return $s->Send();
+        }
+    }
 }
 ?>

@@ -177,4 +177,8 @@ Router::post('/mostrarcarrito', [CarritoController::class, 'mostrarcarrito']);
 
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
+
+// poder borrar pedido
+Router::post("/borrarpedido", [PedidoCafeController::class, "borrarpedidocafe"]);
+
 ?>
