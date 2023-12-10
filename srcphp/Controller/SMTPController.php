@@ -35,6 +35,7 @@ class SMTPController {
             $mail->Body = 'Ejemplo de algo';
 
             $mail->send();
+            echo "auisa";
         } catch (\Exception $e) {
             $r = new Failure(401, $e->getMessage());
             return $r->Send();

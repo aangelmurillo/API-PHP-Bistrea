@@ -215,5 +215,4 @@ Router::any('/404', '../views/404.php');
 // Router para enviar correo
 Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"])
 
-
-    ?>
+?>
