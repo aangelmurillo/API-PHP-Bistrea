@@ -2,6 +2,7 @@
 namespace proyecto;
 
 use proyecto\Controller\PedidoCafeController;
+use proyecto\Controller\SMTPController;
 use proyecto\Controller\UsuarioController;
 
 require("../vendor/autoload.php");
@@ -211,5 +212,8 @@ Router::get('/usuario/buscar/$id', function ($id) {
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
 
+// Router para enviar correo
+Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"])
 
-?>
+
+    ?>
