@@ -18,7 +18,7 @@ class VerificarController {
         return rand(100000, 999999);
     }
 
-    function enviar() {
+    public function enviar() {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
