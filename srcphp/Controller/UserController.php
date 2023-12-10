@@ -34,11 +34,11 @@ class UserController
             $existingPhone = usuario::where('telefono_usuario','=', $dataObject->telefono_usuario);
 
             if ($existingEmail) {
-                throw new \Exception("El correo electrónico '{$dataObject->email_usuario}' ya está registrado.");
+                throw new \Exception("El correo electrónico ya está registrado.");
             }
 
             if ($existingPhone) {
-                throw new \Exception("El teléfono '{$dataObject->telefono_usuario}' ya está registrado.");
+                throw new \Exception("El teléfono ya está registrado.");
             }
 
 
