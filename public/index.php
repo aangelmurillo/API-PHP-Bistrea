@@ -1,6 +1,7 @@
 <?php
 namespace proyecto;
 
+use proyecto\Controller\CarritoController;
 use proyecto\Controller\PedidoCafeController;
 use proyecto\Controller\SMTPController;
 use proyecto\Controller\UsuarioController;
@@ -36,6 +37,8 @@ ini_set('display_startup_errors', 1);
 Router::get("/", function () {
     echo "Bienvenido";
 });
+
+Router::get("/carrito", [CarritoController::class, "carrito"]);
 
 // Router para enviar correo
 // Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
