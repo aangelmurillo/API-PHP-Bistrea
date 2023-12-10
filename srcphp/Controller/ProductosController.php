@@ -5,6 +5,7 @@ namespace proyecto\Controller;
 use PDO;
 use proyecto\Models\Table;
 use proyecto\Models\producto;
+use proyecto\Models\producto_extra;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 use proyecto\Conexion;
@@ -18,6 +19,20 @@ class ProductosController
         $this->conexion = new Conexion('cafeteria', 'localhost:3306', 'bistrea', 'bistrea1234');
     }
 
+    public function verproductoextra()
+    {
+        try{
+            try {
+                $productose = Table::query("SELECT * FROM productos_extra");
+                $productose = new Success($productose);
+                $productose->Send();
+                return $productose;
+            } catch (\Exception $e) {
+                $s = new Failure(401, $e->getMessage());
+                return $s->Send();
+            }
+        }
+    }
     public function actualizarstock()
     {
         try {

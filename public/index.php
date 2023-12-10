@@ -17,6 +17,7 @@ use proyecto\Models\empleado;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
 use proyecto\Models\producto;
+use proyecto\Models\producto_extra;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
 
@@ -133,6 +134,8 @@ Router::post("/actualizarstock", [ProductosController::class, "actualizarstock"]
 
 //ver productos
 Router::get('/verproductos', [ProductosController::class, "verproductos"]);
+
+Router::get('/verproductosextra', [ProductosController::class, "verproductoextra"]);
 
 //ver barista
 Router::get('/verempleados', [EmpleadoController::class, 'verempleados']);
