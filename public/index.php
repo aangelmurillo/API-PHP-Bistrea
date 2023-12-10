@@ -34,6 +34,9 @@ Router::getBearerToken();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
+// poder borrar pedido
+Router::post("/borrarpedido", [PedidoCafeController::class, "borrarpedidocafe"]);
+
 
 Router::get("/", function () {
     echo "Bienvenido";
@@ -177,8 +180,5 @@ Router::post('/mostrarcarrito', [CarritoController::class, 'mostrarcarrito']);
 
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
-
-// poder borrar pedido
-Router::post("/borrarpedido", [PedidoCafeController::class, "borrarpedidocafe"]);
 
 ?>
