@@ -57,7 +57,7 @@ class VerificarController {
             $mail->Username = 'bistreacoffeecakes@gmail.com';
             $mail->Password = 'qogkocrkrtszknbl';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;  //este es el puerto comun de tls
+            $mail->Port = 25;  
 
             $mail->setFrom('bistreacoffeecakes@gmail.com', 'Bistrea');
             $mail->addAddress($destinatario);
