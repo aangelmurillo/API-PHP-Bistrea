@@ -37,6 +37,9 @@ Router::get("/", function () {
     echo "Bienvenido";
 });
 
+// Router para enviar correo
+Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
+
 
 // Cambiar en proceso los pedidos a en solicitud
 Router::post("/comprarpedido", [PedidoCafeController::class, "comprarpedido"]);
@@ -212,8 +215,4 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
-
-// Router para enviar correo
-Router::post("/enviarcorreo", [SMTPController::class, "ejemploSMTP"]);
-
 ?>
