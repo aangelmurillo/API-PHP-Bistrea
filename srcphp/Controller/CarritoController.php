@@ -12,11 +12,7 @@ class CarritoController
     public function carrito()
     {
         try {
-            $carro = Table::query("SELECT *
-            FROM pedidos
-            JOIN pedidos_clientes ON pedidos.id = pedidos_clientes.id_pedido
-            JOIN usuarios ON pedidos_clientes.id_usuario = usuarios.id
-            WHERE usuarios.id = id_usuario;");
+            $carro = Table::query("SELECT * FROM carrito");
 
             $carro = new Success($carro);
 
