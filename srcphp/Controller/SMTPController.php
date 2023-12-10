@@ -22,12 +22,12 @@ class SMTPController {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
-            $mail->Password = 'qogk ocrk rtsz knbl';
+            $mail->Password = 'qogkocrkrtszknbl';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             $mail->setFrom('bistreacoffeecakes@gmail.com');
-            $mail->addAddress('bistreacoffeecakes@gmail.com');
+            $mail->addAddress('aangelmurv@gmail.com');
 
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
