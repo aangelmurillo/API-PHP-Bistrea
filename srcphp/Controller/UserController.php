@@ -11,38 +11,66 @@ use proyecto\Models\Table;
 use proyecto\Models\Models;
 use PDO;
 
-class UserController {
-    function registrousuario() {
+class UserController
+{
+    function registrousuario()
+    {
         try {
             $JSONData = file_get_contents("php://input");
-            $dataObject = json_decode($JSONData);
             $user = new usuario();
+
+            if ($JSONData === false) {
+                throw new \Exception("Error al leer la entrada JSON.");
+            }
+
+            $dataObject = json_decode($JSONData);
+
+            if ($dataObject === null) {
+                throw new \Exception("Error al decodificar el JSON.");
+            }
+
+            // Validar si el correo o teléfono ya están registrados
+            $existingEmail = usuario::where('email_usuario', '=', $dataObject->email_usuario);
+            $existingPhone = usuario::where('telefono_usuario','=', $dataObject->telefono_usuario);
+
+            if ($existingEmail) {
+                throw new \Exception("El correo electrónico '{$dataObject->email_usuario}' ya está registrado.");
+            }
+
+            if ($existingPhone) {
+                throw new \Exception("El teléfono '{$dataObject->telefono_usuario}' ya está registrado.");
+            }
+
+
+            // Crear y guardar el nuevo usuario
             $user->nombre_usuario = $dataObject->nombre_usuario;
             $user->apellido_p_usuario = $dataObject->apellido_p_usuario;
             $user->apellido_m_usuario = $dataObject->apellido_m_usuario;
             $user->email_usuario = $dataObject->email_usuario;
-            $user->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);            
-
+            $user->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
             $user->telefono_usuario = $dataObject->telefono_usuario;
             $user->status_usuario = 0;
             $user->creado_en_usuario = null;
             $user->id_rol = 3;
             $user->save();
+
             $r = new Success($user);
             return $r->Send();
         } catch (\Exception $e) {
-            $r = new Failure(401, $e->getMessage());
+            // Manejar la excepción y proporcionar un mensaje descriptivo
+            $error_message = "Error al registrar usuario: " . $e->getMessage();
+            $r = new Failure(401, $error_message);
             return $r->Send();
         }
-
-
     }
 
-    public static function auth() {
+
+    public static function auth()
+    {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-            if(!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
+            if (!property_exists($dataObject, "email_usuario") || !property_exists($dataObject, "contrasena_usuario")) {
                 throw new \Exception("Faltan datos");
             }
             return Usuario::auth($dataObject->email_usuario, $dataObject->contrasena_usuario);
@@ -54,7 +82,8 @@ class UserController {
 
     }
 
-    public function verificar() {
+    public function verificar()
+    {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
@@ -65,7 +94,7 @@ class UserController {
             $resultado = $this->verificarUsuario($email_usuario, $contrasena_usuario);
 
 
-            if($resultado) {
+            if ($resultado) {
 
                 $response = array(
                     "message" => "Inicio de sesión exitoso",
@@ -80,17 +109,18 @@ class UserController {
             }
         } catch (\Exception $e) {
 
-            $r = new Failure(500, "Error en el servidor: ".$e->getMessage());
+            $r = new Failure(500, "Error en el servidor: " . $e->getMessage());
             return $r->Send();
         }
     }
 
-    function verificarUsuario($email_usuario, $contrasena_usuario) {
+    function verificarUsuario($email_usuario, $contrasena_usuario)
+    {
         $resultados = Table::queryParams("SELECT * FROM usuarios WHERE email_usuario = :email_usuario", ['email_usuario' => $email_usuario]);
 
-        if(count($resultados) > 0) {
+        if (count($resultados) > 0) {
             $usuario = $resultados[0];
-            if($usuario->contrasena_usuario === $contrasena_usuario) {
+            if ($usuario->contrasena_usuario === $contrasena_usuario) {
                 return $resultados;
             }
         }
@@ -99,7 +129,8 @@ class UserController {
     }
 
 
-    public function login() {
+    public function login()
+    {
         $JSONData = file_get_contents("php://input");
         $dataObject = json_decode($JSONData);
 
@@ -113,16 +144,17 @@ class UserController {
         echo json_encode($response);
     }
 
-    private function verifyCredentials($email_usuario, $contrasena_usuario) {
+    private function verifyCredentials($email_usuario, $contrasena_usuario)
+    {
         try {
             // Buscar un usuario por correo electrónico
             $user = Usuario::where('email_usuario', '=', $email_usuario);
 
-            if($user) {
+            if ($user) {
                 // Verificar la contraseña almacenada en la base de datos
                 $storedPassword = $user[0]->contrasena_usuario;
 
-                if(password_verify($contrasena_usuario, $storedPassword)) {
+                if (password_verify($contrasena_usuario, $storedPassword)) {
                     $token = auth::generateToken([$user[0]->id]); // Asegúrate de que sea la clave primaria correcta
                     return ['success' => true, 'token' => $token];
                 } else {
@@ -132,11 +164,12 @@ class UserController {
                 return ['success' => false, 'message' => 'Credenciales incorrectas'];
             }
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Error en el servidor: '.$e->getMessage()];
+            return ['success' => false, 'message' => 'Error en el servidor: ' . $e->getMessage()];
         }
     }
 
-    public function all() {
+    public function all()
+    {
         $user = usuario::where("id", "=", '$id');
         $r = new Success($user);
         return $r->Send();
@@ -155,27 +188,31 @@ class UserController {
         return $encodedToken;
     }*/
 
-    function listar() {
+    function listar()
+    {
         $alluser = usuario::all();
         $r = new Success($alluser);
         return $r->Send();
     }
 
 
-    function eliminarAllUsers() {
+    function eliminarAllUsers()
+    {
         usuario::deleteAll();
     }
 
-    function eliminarUsersbyId($id) {
+    function eliminarUsersbyId($id)
+    {
         usuario::delete($id);
     }
 
-    public function actualizardatosusuario() {
+    public function actualizardatosusuario()
+    {
         try {
             $JSONData = file_get_contents('php://input');
             $dataObject = json_decode($JSONData);
 
-            if($dataObject === null) {
+            if ($dataObject === null) {
                 throw new \Exception("Error decoding JSON data");
             }
 
@@ -199,12 +236,13 @@ class UserController {
         }
     }
 
-    public function obtenerhistorialpedidos() {
+    public function obtenerhistorialpedidos()
+    {
         try {
             $JSONData = file_get_contents('php://input');
             $dataObject = json_decode($JSONData);
 
-            if($dataObject === null) {
+            if ($dataObject === null) {
                 throw new \Exception("Error decoding JSON data");
             }
 
@@ -225,12 +263,13 @@ class UserController {
     }
 
 
-    public function cambiarcontrasena() {
+    public function cambiarcontrasena()
+    {
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
 
-            if($dataObject === null) {
+            if ($dataObject === null) {
                 throw new \Exception("Error decoding JSON data");
             }
 
