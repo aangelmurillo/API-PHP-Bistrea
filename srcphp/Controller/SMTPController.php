@@ -27,7 +27,7 @@ class SMTPController {
             $mail->Port = 587;
 
             $mail->setFrom('bistreacoffeecakes@gmail.com');
-            $mail->addAddress('aangelmurv@gmail.com');
+            $mail->addAddress('bistreacoffeecakes@gmail.com');
 
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
