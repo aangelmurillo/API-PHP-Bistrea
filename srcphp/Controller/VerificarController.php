@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
 class VerificarController {
-    function enviar() {
+    public function enviar() {
         $mail = new PHPMailer(true);
 
         try {
