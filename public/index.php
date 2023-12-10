@@ -10,6 +10,7 @@ require("../vendor/autoload.php");
 
 /*use PDOException;
 use PDO;*/
+use proyecto\Controller\PedidoPostreController;
 use proyecto\Controller\UserController;
 use proyecto\Controller\EmpleadoController;
 use proyecto\Controller\ProductosController;
@@ -74,48 +75,17 @@ Router::post("/obtenerhistorialpedidos", [UserController::class, "obtenerhistori
 // Ingresar pedido cafe
 Router::post("/ingresarpedidocafe", [PedidoCafeController::class, "ingresarpedidocafe"]);
 
+// Enviar pedido postre
+Router::post("/ingresarpedidopostre", [PedidoPostreController::class, "ingresarpedidopostre"]);
+
+// Ver los productos de postre
+Router::get("/verpostres", [PedidoPostreController::class,"verpostres"]);
+
 // Ver los productos
 Router::get("/vercafes", [PedidoCafeController::class, "vercafes"]);
 
-// Ver los postres
-Router::get("/verpostres", [PedidoCafeController::class, "verpostres"]);
-
-// Mandar enviar
-// Router::get("/enviarboton", [VerificarController::class, "enviar"]);
-
-// Routers de prueba para saber si funciona el mod_rewrite y el PDO
-/*
-// Registrar Usuario
-Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
-
-// Ver usuarios
-Router::get("/verUsuarios", [UsuarioController::class,"verUsuarios"]);
-
-// Ver imagenes 
-Router::get("/verImagenesCarrusel", [CarruselController::class, "verImagenes"]);
-
-// Insertar imagenes para el carrusel
-Router::post("/obtenerImagenes", [CarruselController::class, "insertarImagenesCarrusel"]);
-
-// Routers de prueba para saber si funciona el mod_rewrite y el PDO
-Router::get("/", function () {
-    echo "Probando";
-});
-
-Router::get("/mostrar", function () {
-    try {;
-        $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "Angel", "12345");
-        $pdo = new PDO('mysql:host=localhost;dbname=cafeteria', "bistrea", "bistrea1234");
-        echo "Conexión exitosa!";
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-});
-*/
-
 // Ruta para ver usuarios para apartado de admin
 Router::get("/verusuariosadmin", [UsuarioController::class, "verUsuariosAdmin"]);
-
 
 // Ruta para ver resumen pedidos pendientes
 Router::get("/verresumenpedidospendientes", [PedidoController::class, "verresumenpedidospendientes"]);
@@ -198,23 +168,9 @@ Router::get('/all', [UserController::class, 'all']);
 
 //ingresar empleado
 Router::post("/altaempleado", [EmpleadoController::class, "altaempleado"]);
+
 //hacer pedido
 Router::post("/hacerpedido", [PedidoController::class, "hacerpedido"]);
-// Router::get('/prueba', [crearPersonaController::class, "prueba"]);
-
-// Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
-Router::get('/usuario/buscar/$id', function ($id) {
-
-    $user = User::find($id);
-    if(!$user) {
-        $r = new Failure(404, "no se encontro el usuario");
-        return $r->Send();
-    }
-    $r = new Success($user);
-    return $r->Send();
-
-
-});
 
 // Ver pedidos en proceso
 Router::post('/mostrarcarrito', [CarritoController::class, 'mostrarcarrito']);
