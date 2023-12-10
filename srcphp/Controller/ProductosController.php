@@ -21,7 +21,6 @@ class ProductosController
 
     public function verproductoextra()
     {
-        try{
             try {
                 $productose = Table::query("SELECT * FROM productos_extra");
                 $productose = new Success($productose);
@@ -31,7 +30,6 @@ class ProductosController
                 $s = new Failure(401, $e->getMessage());
                 return $s->Send();
             }
-        }
     }
     public function actualizarstock()
     {
