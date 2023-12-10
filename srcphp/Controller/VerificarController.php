@@ -23,8 +23,8 @@ class VerificarController {
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
             $mail->Password = 'qogkocrkrtszknbl';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 25;  
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;  
 
             $mail->setFrom('bistreacoffeecakes@gmail.com', 'Bistrea');
             $mail->addAddress('frank.athr095@gmail.com');
