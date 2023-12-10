@@ -22,8 +22,7 @@ class VerificarController {
             $mail->Host = 'smtp.gmail.com';  //Esto es la conexion del servidor esmtp
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
-            $mail->Password = 'qogkocrkrtszknbl';
-            $mail->SMTPSecure = 'tls';
+            $mail->Password = 'qogkocrkrtszknbl';            
             $mail->Port = 587;  
 
             $mail->setFrom('bistreacoffeecakes@gmail.com', 'Bistrea');
@@ -35,7 +34,7 @@ class VerificarController {
             $mail->Body = "Tu código de verificación es ";
 
             $mail->send();
-            
+            echo "Correo enviado correctamente";
         } catch (Exception $e) {
             echo "Error al enviar el correo: {$mail->ErrorInfo}";
         }
