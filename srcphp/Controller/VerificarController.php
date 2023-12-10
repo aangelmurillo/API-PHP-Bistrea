@@ -54,7 +54,7 @@ class VerificarController {
             $mail->Host = 'smtp.gmail.com';  //Esto es la conexion del servidor esmtp
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
-            $mail->Password = 'qogk ocrk rtsz knbl';
+            $mail->Password = 'qogkocrkrtszknbl';
             $mail->SMTPSecure = 'tls';   //esto es ocmo seguridad
             $mail->Port = 587;  //este es el puerto comun de tls
 
