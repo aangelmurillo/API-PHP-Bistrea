@@ -16,8 +16,7 @@ class SMTPController {
     public function ejemploSMTP() {
         $mail = new PHPMailer(true);
 
-        try {
-            require("../../vendor/autoload");
+        try {            
             // Obtén los datos JSON de la solicitud
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
