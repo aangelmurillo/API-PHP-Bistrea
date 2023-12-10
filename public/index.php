@@ -216,6 +216,9 @@ Router::get('/usuario/buscar/$id', function ($id) {
 
 });
 
+// Ver pedidos en proceso
+Router::post('/mostrarcarrito', [CarritoController::class, 'mostrarcarrito']);
+
 // Router::get('/respuesta', [crearPersonaController::class, "response"]);
 Router::any('/404', '../views/404.php');
 ?>
