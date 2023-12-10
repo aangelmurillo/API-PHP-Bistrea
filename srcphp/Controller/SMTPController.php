@@ -25,7 +25,7 @@ class SMTPController {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
-            $mail->Password = 'qogk ocrk rtsz knbl'; // Reemplázala con la contraseña correcta o la contraseña de aplicación generada
+            $mail->Password = 'qogkocrkrtszknbl'; // Reemplázala con la contraseña correcta o la contraseña de aplicación generada
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
@@ -46,8 +46,7 @@ class SMTPController {
             return $r->Send();
         } catch (Exception $e) {
             // Captura y maneja excepciones
-            $r = new Failure(401, $e->getMessage());
-            return $r->Send();
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 }
