@@ -28,26 +28,42 @@ class CarritoController
     public function mostrarcarrito()
     {
         try {
-            $JSONData = file_get_contents("php://input");
-            $dataObject = json_decode($JSONData);
+            // Suponiendo que estás recibiendo datos JSON a través de una solicitud HTTP
+            $datosJSON = file_get_contents("php://input");
+            $objetoDatos = json_decode($datosJSON);
 
-            if ($dataObject === null) {
-                throw new \Exception("Error decoding JSON data");
+            if ($objetoDatos === null || !isset($objetoDatos->p_id_usuario)) {
+                throw new \Exception("ID de usuario inválido o ausente en los datos JSON");
             }
 
-            $query = "CALL obtener_pedido_usuario(
-                :p_id_usuario
-            )";
+            $idUsuario = $objetoDatos->p_id_usuario;
 
-            $params = ['p_id_usuario' => $dataObject->p_id_usuario];
+            // Llama al método para obtener datos del carrito de compras para el usuario
+            $resultado = $this->obtenerPedidoUsuario($idUsuario);
 
-            $resultado = Table::queryParams($query, $params);
-
-            $r = new Success($resultado);
-            return $r->Send();
+            // Suponiendo que las clases Success y Failure están definidas en otro lugar
+            $respuesta = new Success($resultado);
+            return $respuesta->Send();
         } catch (\Exception $e) {
-            $s = new Failure(401, $e->getMessage());
-            return $s->Send();
+            $respuestaError = new Failure(401, $e->getMessage());
+            return $respuestaError->send();
+        }
+    }
+
+    // Método para obtener datos del carrito de compras para un usuario
+    private function obtenerPedidoUsuario($idUsuario)
+    {
+        try {
+            $consulta = "CALL obtener_pedido_usuario(:p_id_usuario)";
+            $parametros = ['p_id_usuario' => $idUsuario];
+
+            // Suponiendo que la clase Table tiene un método queryParams para ejecutar consultas
+            $resultado = Table::queryParams($consulta, $parametros);
+
+            return $resultado;
+        } catch (\Exception $e) {
+            // Maneja cualquier excepción específica relacionada con la obtención de datos
+            throw new \Exception("Error al obtener datos del carrito de compras: " . $e->getMessage());
         }
     }
 
