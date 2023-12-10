@@ -13,6 +13,7 @@ use proyecto\Controller\EmpleadoController;
 use proyecto\Controller\ProductosController;
 use proyecto\Controller\PedidoController;
 use proyecto\Controller\ResenasController;
+use proyecto\Controller\VerificarController;
 use proyecto\Models\empleado;
 use proyecto\Models\User;
 use proyecto\Models\usuario;
@@ -61,14 +62,16 @@ Router::post("/obtenerhistorialpedidos", [UserController::class, "obtenerhistori
 Router::post("/ingresarpedidocafe", [PedidoCafeController::class, "ingresarpedidocafe"]);
 
 // Ver los productos
-Router::get("/vercafes", [PedidoCafeController::class,"vercafes"]);
+Router::get("/vercafes", [PedidoCafeController::class, "vercafes"]);
 
 // Ver los postres
-Router::get("/verpostres", [PedidoCafeController::class,"verpostres"]);
+Router::get("/verpostres", [PedidoCafeController::class, "verpostres"]);
+
+// Mandar enviar
+Router::post("/enviarboton", [VerificarController::class, "enviar"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
-
 // Registrar Usuario
 Router::post("/registroUsuario", [RegistroController::class, "registrarUsuario"]);
 
@@ -148,7 +151,7 @@ Router::post('/usuario', [UsuarioController::class, 'all', true]);
 //ver pedidos
 Router::get('/verpedidos', [PedidoController::class, 'verpedido']);
 
- 
+
 //funcion login
 Router::post('/login', [UserController::class, "login"]);
 
