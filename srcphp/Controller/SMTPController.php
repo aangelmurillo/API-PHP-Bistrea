@@ -21,13 +21,13 @@ class SMTPController {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'vetcachorrosdoc@gmail.com';
-            $mail->Password = 'wqixaoqjmmxaklqo';
+            $mail->Username = 'bistreacoffeecakes@gmail.com';
+            $mail->Password = 'qogk ocrk rtsz knbl';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('vetcachorrosdoc@gmail.com');
-            $mail->addAddress('vetcachorrosdoc@gmail.com');
+            $mail->setFrom('bistreacoffeecakes@gmail.com');
+            $mail->addAddress('aangelmurv@gmail.com');
 
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
