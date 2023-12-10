@@ -50,12 +50,13 @@ class VerificarController {
         $mail = new PHPMailer(true);
 
         try {
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();  //Este es el protoocolo [ara enviar correo elecrinicos]
             $mail->Host = 'smtp.gmail.com';  //Esto es la conexion del servidor esmtp
             $mail->SMTPAuth = true;
             $mail->Username = 'bistreacoffeecakes@gmail.com';
             $mail->Password = 'qogkocrkrtszknbl';
-            $mail->SMTPSecure = 'tls';   //esto es ocmo seguridad
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;  //este es el puerto comun de tls
 
             $mail->setFrom('bistreacoffeecakes@gmail.com', 'Bistrea');
@@ -67,15 +68,11 @@ class VerificarController {
             $mail->Body = "Tu código de verificación es: $codigo";
 
             $mail->send();
-
+            
         } catch (Exception $e) {
             echo "Error al enviar el correo: {$mail->ErrorInfo}";
         }
 
     }
-
-
-
-
 }
 ?>
