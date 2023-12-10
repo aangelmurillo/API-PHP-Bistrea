@@ -21,6 +21,7 @@ class VerificarController {
             $mail->isSMTP();  //Este es el protoocolo [ara enviar correo elecrinicos]
             $mail->Host = 'smtp.gmail.com';  //Esto es la conexion del servidor esmtp
             $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'ssl';
             $mail->Username = 'bistreacoffeecakes@gmail.com';
             $mail->Password = 'qogkocrkrtszknbl';            
             $mail->Port = 587;  
