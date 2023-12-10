@@ -68,7 +68,7 @@ Router::get("/vercafes", [PedidoCafeController::class, "vercafes"]);
 Router::get("/verpostres", [PedidoCafeController::class, "verpostres"]);
 
 // Mandar enviar
-Router::get("/enviarboton", [VerificarController::class, "enviar"]);
+// Router::get("/enviarboton", [VerificarController::class, "enviar"]);
 
 // Routers de prueba para saber si funciona el mod_rewrite y el PDO
 /*
