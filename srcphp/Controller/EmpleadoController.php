@@ -30,14 +30,38 @@ class EmpleadoController
         try {
             $JSONData = file_get_contents("php://input");
             $dataObject = json_decode($JSONData);
-
             $usuario = new usuario();
+
+
+            if ($JSONData === false) {
+                throw new \Exception("Error al leer la entrada JSON.");
+            }
+
+            $dataObject = json_decode($JSONData);
+
+            if ($dataObject === null) {
+                throw new \Exception("Error al decodificar el JSON.");
+            }
+
+            // Validar si el correo o teléfono ya están registrados
+            $existingEmail = usuario::where('email_usuario', '=', $dataObject->email_usuario);
+            $existingPhone = usuario::where('telefono_usuario', '=', $dataObject->telefono_usuario);
+
+            if ($existingEmail) {
+                throw new \Exception("El correo electrónico ya está registrado.");
+            }
+
+            if ($existingPhone) {
+                throw new \Exception("El teléfono ya está registrado.");
+            }
+
+
             $usuario->nombre_usuario = $dataObject->nombre_usuario;
             $usuario->apellido_p_usuario = $dataObject->apellido_p_usuario;
             $usuario->apellido_m_usuario = $dataObject->apellido_m_usuario;
             $usuario->email_usuario = $dataObject->email_usuario;
             $usuario->contrasena_usuario = password_hash($dataObject->contrasena_usuario, PASSWORD_DEFAULT);
-            
+
             $usuario->telefono_usuario = $dataObject->telefono_usuario;
             $usuario->status_usuario = 0;
             $usuario->creado_en_usuario = $dataObject->creado_en_usuario;
