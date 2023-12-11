@@ -42,6 +42,12 @@ Router::get("/", function () {
     echo "Bienvenido";
 });
 
+// Poder ver pedidos de cafe
+Router::get("/pedidoscafe", [PedidoController::class,"verpedidospendientescafes"]);
+
+// Poder ver pedidos de postre
+Router::get("/pedidospostre", [PedidoController::class,"verpedidospendientespostres"]);
+
 Router::get("/carrito", [CarritoController::class, "carrito"]);
 
 // Router para enviar correo

@@ -22,7 +22,7 @@ class PedidoController
             return $s->Send();
         }
     }
-    
+
     public function vercortedecaja()
     {
         try {
@@ -65,13 +65,26 @@ class PedidoController
         }
     }
 
-    public function verpedidospendientes()
+    public function verpedidospendientescafes()
     {
         try {
-            $pedidospendientes = Table::query("SELECT * FROM barista_pendiente_barista");
-            $pedidospendientes = new Success($pedidospendientes);
-            $pedidospendientes->Send();
-            return $pedidospendientes;
+            $pedidospendientescafe = Table::query("SELECT * FROM barista_pendiente_cafes");
+            $pedidospendientescafe = new Success($pedidospendientescafe);
+            $pedidospendientescafe->Send();
+            return $pedidospendientescafe;
+        } catch (\Exception $e) {
+            $s = new Failure(0, $e->getMessage());
+            return $s->Send();
+        }
+    }
+
+    public function verpedidospendientespostres()
+    {
+        try {
+            $pedidospendientespostres = Table::query("SELECT * FROM barista_pendiente_postres");
+            $pedidospendientespostres = new Success($pedidospendientespostres);
+            $pedidospendientespostres->Send();
+            return $pedidospendientespostres;
         } catch (\Exception $e) {
             $s = new Failure(0, $e->getMessage());
             return $s->Send();
