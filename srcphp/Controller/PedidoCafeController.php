@@ -8,7 +8,6 @@ use proyecto\Models\detalle_pedido;
 use proyecto\Models\pedido_cliente;
 use proyecto\Models\detalle_pedido_pe;
 use proyecto\Models\detalle_pedido_tipo_cafe;
-use proyecto\Models\producto;
 use proyecto\Response\Success;
 use proyecto\Response\Failure;
 use proyecto\Models\Table;
@@ -128,11 +127,17 @@ class PedidoCafeController
             $detalles_pedido_pe->id_producto_extra = $dataObject->id_producto_extra;
             $detalles_pedido_pe->save();
 
+            $detalles_pedido_tipo_cafe = new detalle_pedido_tipo_cafe();
+            $detalles_pedido_tipo_cafe->nom_cafe = $dataObject->nom_cafe;
+            $detalles_pedido_tipo_cafe->id_detalle_pedido = $detalles_pedido->id;
+            $detalles_pedido_tipo_cafe->id_tipo_cafe = $dataObject->id_tipo_cafe;
+
             $respone = array(
                 'pedido' => $pedidos,
                 'pedidos_clientes' => $pedidos_clientes,
                 'detalles_pedido' => $detalles_pedido,
-                'detalles_pedido_pe' => $detalles_pedido_pe
+                'detalles_pedido_pe' => $detalles_pedido_pe,
+                'detalles_pedido_tipo_cafe' => $detalles_pedido_tipo_cafe
             );
 
             $r = new Success($respone);
