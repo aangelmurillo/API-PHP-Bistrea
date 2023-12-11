@@ -131,6 +131,7 @@ class PedidoCafeController
             $detalles_pedido_tipo_cafe->nom_cafe = $dataObject->nom_cafe;
             $detalles_pedido_tipo_cafe->id_detalle_pedido = $detalles_pedido->id;
             $detalles_pedido_tipo_cafe->id_tipo_cafe = $dataObject->id_tipo_cafe;
+            $detalles_pedido_tipo_cafe->save();
 
             $respone = array(
                 'pedido' => $pedidos,
