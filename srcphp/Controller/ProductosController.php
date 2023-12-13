@@ -97,38 +97,7 @@ class ProductosController
             $prod->precio_unitario_producto = $dataObject->precio_unitario_producto;
             $prod->stock_producto = $dataObject->stock_producto;
 
-            // Poder guardar imagen
-            $imagenBase64 = $dataObject->img_producto;
-            $imagenData = base64_decode($imagenBase64);
-
-            $finfo = finfo_open();
-            $mime_type = finfo_buffer($finfo, $imagenData, FILEINFO_MIME_TYPE);
-            finfo_close($finfo);
-
-            // Validar la extensión permitida
-            $extensionMap = [
-                'image/jpeg' => 'jpg',
-                'image/jpg' => 'jpg',
-                'image/png' => 'png',
-                'image/svg+xml' => 'svg',
-            ];
-
-            if (!array_key_exists($mime_type, $extensionMap)) {
-                throw new \Exception('Formato de imagen no permitido');
-            }
-
-            $fileExtension = $extensionMap[$mime_type];
-            $nombreImagen = uniqid() . '.' . $fileExtension;
-
-            $rutaImagen = '/var/www/html/apiPhp/public/img/productos/' . $nombreImagen;
-
-            file_put_contents($rutaImagen, $imagenData);
-
-            if (file_put_contents($rutaImagen, $imagenData) === false) {
-                throw new \Exception('Error al guardar la imagen: ' . error_get_last()['message']);
-            }
-
-            $prod->img_producto = $rutaImagen;
+            $prod->img_producto = null;
 
 
             $prod->slug_producto = $dataObject->slug_producto;
