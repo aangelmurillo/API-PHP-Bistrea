@@ -13,7 +13,7 @@ class ResenasController
     public function verresenas()
     {
         try {
-            $pedid = Table::query("SELECT resenas.id AS id, nombre_usuario, apellido_p_usuario, apellido_m_usuario, telefono_usuario AS Telefono, comentario_resena AS Resena
+            $pedid = Table::query("SELECT resenas.id AS id, nombre_usuario, apellido_p_usuario, apellido_m_usuario, telefono_usuario AS Telefono, comentario_resena AS Resena, calificacion
             FROM usuarios
             INNER JOIN resenas
             ON resenas.id_usuario=usuarios.id;");
@@ -36,6 +36,7 @@ class ResenasController
             $dataobject = json_decode($JSONData);
             $resen = new resena();
             $resen->comentario_resena = $dataobject->comentario_resena;
+            $resen->calificacion = $dataobject->calificacion;
             $resen->id_usuario = $dataobject->id_usuario;
             $resen ->save();
             $r = new Success();
