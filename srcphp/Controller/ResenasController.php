@@ -31,19 +31,19 @@ class ResenasController
 
     public function hacerresena()
     {
-        try{
+        try {
             $JSONData = file_get_contents("php://input");
             $dataobject = json_decode($JSONData);
             $resen = new resena();
             $resen->comentario_resena = $dataobject->comentario_resena;
             $resen->calificacion = $dataobject->calificacion;
             $resen->id_usuario = $dataobject->id_usuario;
-            $resen ->save();
+            $resen->save();
             $r = new Success();
             return $r->Send();
         } catch (\Exception $e) {
             $r = new Failure(401, $e->getMessage());
-            return $r ->Send();
+            return $r->Send();
         }
     }
 }
